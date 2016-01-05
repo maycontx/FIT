@@ -1,0 +1,65 @@
+@font-face {
+    font-family: Montserrat;
+    src: url('../libs/fonts/Montserrat-Regular.ttf');    
+}
+
+a{
+   color: #247448;
+   cursor: pointer;
+}
+
+a:hover{
+   color: #247448;
+}
+
+.container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.btn-primary{
+    background-color: #3A5795;
+    border-radius: 0;
+}
+
+.btn-success{
+    background-color: #247448;
+    border-radius: 0;
+    border: 1px solid #247448;
+}
+
+.btn-primary:hover{
+    background-color: #2F4980;
+}
+
+.btn-success:hover{
+    background-color: #1B5937;
+}
+
+.form-control:focus{
+    border-color: #247448;
+}
+
+.error-report{
+    position: absolute;
+    left: 310px;
+    padding: 4px;
+    background: #8b0300;
+    color: #FFF;
+    font-size: 12px;
+    top: 6px;
+    width: 80px;
+    z-index: 9999;
+    border-radius: 4px;
+}
+
+.error-pointer{
+    position: absolute;
+    background-image: url('../img/leftPointer.png');
+    background-repeat: no-repeat;
+    width: 9px;
+    height: 20px;
+    left: -8px;
+    top: 0px;
+}
+

@@ -2,3 +2,59 @@
 body{
     font-family: "Montserrat", arial;
 }
+
+/*
+HEADER
+*/
+.home-header{
+    background-color: #247448;
+    min-height: 90px;
+}
+
+.home-header .header{
+    margin: 10px 0;
+    text-align: right;
+}
+
+.home-header .header > div{
+    position: relative;
+    display: inline-block;
+    color: #ffffff;
+    text-transform: uppercase;    
+    margin: 35px 20px 20px;
+    font-size: 14px;
+}
+
+.home-header .header > div:hover{
+    color: #cccccc;
+    cursor: pointer;
+}
+
+.home-header .header > div .fa{
+    position: absolute;
+    top: -23px;
+    right: 5px;
+    font-size: 18px;    
+}
+
+/*
+BRAND
+*/
+
+.brand{
+    text-align: center;
+}
+
+.brand .brand-content{
+    padding: 60px 0;
+}
+
+.brand .brand-content .brand-text{
+    font-size: 20px;
+    color: #247448;
+    margin-top: 5px;
+}
+
+.brand .brand-content .brand-buttons{
+    margin-top: 20px;
+}

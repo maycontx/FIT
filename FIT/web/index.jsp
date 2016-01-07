@@ -4,6 +4,7 @@
     <jsp:include page="head.jsp" />    
     <body>
         <div class="global">
+            <!-- HOME HEADER -->
             <div class="container-fluid home-header">
                 <div class="container header">
                     <div>
@@ -17,6 +18,8 @@
                     </div>
                 </div>
             </div>
+            <!-- //HOME HEADER -->
+            <!-- HOME BRAND -->
             <div class="container-fluid brand">
                 <div class="container brand-content">
                     <img src="img/home-logo.png">
@@ -27,6 +30,7 @@
                     </div>
                 </div>
             </div>
+            <!-- //HOME BRAND -->
         </div>
     </body>
 </html>

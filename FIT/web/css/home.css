@@ -30,6 +30,7 @@ HEADER
     cursor: pointer;
 }
 
+/* ICONS */
 .home-header .header > div .fa{
     position: absolute;
     top: -23px;

@@ -8,7 +8,7 @@
         <link href="css/home.css" rel="stylesheet">      
         <script language="javascript" src="libs/js/jquery-1.11.3.js"></script>
         <script language="javascript" src="libs/js/bootstrap.js"></script>
-        <script language="javascript" src="js/global.js"></script>
+        <script language="javascript" src="js/javascript.js"></script>
         <script language="javascript" src="js/ajax.js"></script>
     </head>
 </html>

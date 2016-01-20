@@ -1,4 +1,4 @@
-// HOME REGISTER FORM VAR
+/* HOME REGISTER FORM VAR
 var homeRegister = {   
     validation: function(){        
         var name = $("input[name='reg-name']");
@@ -60,3 +60,4 @@ $(document).ready(function(){
         }              
     });
 });
+*/

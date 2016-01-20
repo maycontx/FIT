@@ -33,7 +33,7 @@
             <!-- //HOME BRAND -->
             <!-- HOME REGISTER FORM -->
             <div class="container-fluid form">
-                <form method="POST" name="home-register" data-react="0">
+                <form method="POST" name="home-register" data-react="0" action="indexController">
                     <div class="container form-content">
                         <div class="form-title">Seja bem-vindo!</div>
                         <div class="form-minus">O cadastro é rápido, nós prometemos :)</div>
@@ -109,6 +109,7 @@
                             <div class="col-lg-4">
                                 <select name="reg-year" class="form-control" data-name="Ano">
                                     <option value="0">Ano</option>
+                                    <option value=2016>2016</option>
                                     <option value=2015>2015</option>
                                     <option value=2014>2014</option>
                                     <option value=2013>2013</option>
@@ -226,6 +227,7 @@
                         <div class="col-lg-6 col-md-6">
                             <input name="reg-repass" type="password" class="form-control" placeholder="Repita a senha" data-name="Repetir senha">
                         </div>
+                        <div style="color: red;">${message}</div>
                         <div class="col-lg-12 col-md-12">
                             <input type="submit" class="btn btn-success" value="Finalizar cadastro" data-id="submit-home-register">
                         </div>

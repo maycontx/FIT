@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -54,60 +55,7 @@
                                 <span class="label">Data de nascimento</span>
                             </div>    
                             <div class="col-lg-4">
-                                <select name="reg-day" class="form-control" data-name="Dia">
-                                    <option value="0">Dia</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4">
-                                <select name="reg-mon" class="form-control" data-name="Mês">
-                                    <option value="0">Mês</option>
-                                    <option value="1">Jan</option>
-                                    <option value="2">Fev</option>
-                                    <option value="3">Mar</option>
-                                    <option value="4">Abr</option>
-                                    <option value="5">Mai</option>
-                                    <option value="6">Jun</option>
-                                    <option value="7">Jul</option>
-                                    <option value="8">Ago</option>
-                                    <option value="9">Set</option>
-                                    <option value="10">Out</option>
-                                    <option value="11">Nov</option>
-                                    <option value="12">Dez</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4">
-                                <select name="reg-year" class="form-control" data-name="Ano">
+                                <select name="reg-year" class="form-control" data-name="birthdate">
                                     <option value="0">Ano</option>
                                     <option value=2016>2016</option>
                                     <option value=2015>2015</option>
@@ -222,15 +170,86 @@
                                     <option value=1906>1906</option>
                                     <option value=1905>1905</option>
                                 </select>
-                            </div>                        
+                            </div> 
+                            
+                            <div class="col-lg-4">
+                                <select name="reg-mon" class="form-control" data-name="birthdate">
+                                    <option value="0">Mês</option>
+                                    <option value="1">Jan</option>
+                                    <option value="2">Fev</option>
+                                    <option value="3">Mar</option>
+                                    <option value="4">Abr</option>
+                                    <option value="5">Mai</option>
+                                    <option value="6">Jun</option>
+                                    <option value="7">Jul</option>
+                                    <option value="8">Ago</option>
+                                    <option value="9">Set</option>
+                                    <option value="10">Out</option>
+                                    <option value="11">Nov</option>
+                                    <option value="12">Dez</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <select name="reg-day" class="form-control" data-name="birthdate">
+                                    <option value="0">Dia</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                            </div>                       
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <input name="reg-repass" type="password" class="form-control" placeholder="Repita a senha" data-name="Repetir senha">
+                            <input name="reg-repass" type="password" class="form-control" placeholder="Repita a senha" data-name="Repetir Senha">
                         </div>
-                        <div style="color: red;">${message}</div>
-                        <div class="col-lg-12 col-md-12">
+                        <div class="reg-sex col-lg-6 col-md-6">
+                            <div class="col-lg-12">
+                                <span class="label">Sexo</span>
+                            </div>   
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-primary basic-radio">
+                                    <input type="radio" name="reg-sex" id="M" value="M" autocomplete="off" data-name="sex"> Masculino
+                                </label>
+                                <label class="btn btn-primary basic-radio">
+                                    <input type="radio" name="reg-sex" id="F" value="F" autocomplete="off" data-name="sex"> Feminino
+                                </label>                                    
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
                             <input type="submit" class="btn btn-success" value="Finalizar cadastro" data-id="submit-home-register">
                         </div>
+                        <c:if test="${message != null}">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="alert alert-danger be-error-report">${message}</div>
+                            </div>
+                        </c:if>
                     </div>
                 </form>
             </div>

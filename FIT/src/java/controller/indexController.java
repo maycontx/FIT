@@ -37,8 +37,7 @@ public class indexController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");        
         
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
@@ -52,13 +51,15 @@ public class indexController extends HttpServlet {
         validate.setRepassword(request.getParameter("reg-repass"));
         validate.setBirthdate(request.getParameter("reg-day") + "/"
                 + request.getParameter("reg-mon") + "/" + request.getParameter("reg-year"));
+        validate.setSex(request.getParameter("reg-sex"));
         //
 
         //Verifica o resultado da validação
         if (validate.validationRegister()) {
             //manda mensagem de erro para a página
+            
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            String message = "Existem campos com preenchimento incorreto!";
+            String message = "Um dos campos apresenta erro. Por favor, insira seus dados corretamente.";
             request.setAttribute("message", message);
             rd.forward(request, response);
             //
@@ -71,8 +72,8 @@ public class indexController extends HttpServlet {
             user.setSenha(validate.getPassword());
             user.setNascimento(validate.convertDate(validate.getBirthdate()));
 
-            //new UsuarioJpaController(emf).create(user);
-            //
+            new UsuarioJpaController(emf).create(user);
+            
         }
     }
 

@@ -44,7 +44,7 @@ a:hover{
     position: absolute;
     left: 210px;
     padding: 2px;
-    background: #8b0300;
+    background: rgba(139, 3, 0, 0.67);
     color: #FFF;
     font-size: 12px;
     top: 6px;
@@ -63,3 +63,19 @@ a:hover{
     top: 0px;
 }
 
+.btn-group > .basic-radio{
+    background-color: #ffffff;
+    color: #333;
+    border-color: #ffffff;
+}
+
+.btn-group > .basic-radio:hover{
+    background: #247448;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.btn-group > .active{
+    background: #247448;
+    color: #ffffff;
+}

@@ -25,6 +25,7 @@ public class validation {
     private String password;
     private String repassword;
     private String birthdate;
+    private String sex;
     //
 
     public validation() {
@@ -48,7 +49,7 @@ public class validation {
         if (email.equals("")) {
             error = true;
         } else {
-            String regex = "[A-Za-z0-9\\._-]+@[A-Za-z0-9]+\\.[A-Za-z]+";
+            String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             boolean ok = email.matches(regex);
             if (!ok) {
                 error = true;
@@ -74,7 +75,15 @@ public class validation {
         } catch (ParseException ex) {
             error = true;
         }
-        //
+        
+        if ( sex != null ){
+            if ( !sex.equals("M") && !sex.equals("F") ){
+                error = true;
+            }            
+        }else
+            error = true;
+        
+        
         return error;
     }
 
@@ -135,5 +144,15 @@ public class validation {
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    
+    
 
 }

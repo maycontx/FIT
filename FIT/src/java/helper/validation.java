@@ -5,6 +5,7 @@
  */
 package helper;
 
+import dao.UsuarioJpaController;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,7 +97,7 @@ public class validation {
         }
        return new Date();
     }
-
+    
     public String getName() {
         return name;
     }

@@ -89,7 +89,7 @@ var homeRegister = {
         if ( aftername.val() == "" )
             error.push(aftername);
         
-        var mailValidRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
+        var mailValidRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if ( !mailValidRegex.test(email.val()) )
             error.push(email);
         
@@ -152,6 +152,12 @@ var homeRegister = {
             errorContent.append(errorPointer);
             
         }    
+    
+        if ( error.length == 0 ){
+            $("form[name='home-register']").attr("data-react", "_zxv0");
+            $("form[name='home-register']").submit();
+        }
+    
     }
 };
 

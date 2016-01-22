@@ -1440,4 +1440,21 @@ public class UsuarioJpaController implements Serializable {
         }
     }
     
+    // CHECAR SE JA EXISTE UM USUARIO COM EMAIL PASSADO
+    public Usuario checkEmail(String email){
+        
+        String query = "SELECT user FROM Usuario user WHERE user.email = :email"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("email", email);       
+        
+        try{
+            return (Usuario) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    
 }

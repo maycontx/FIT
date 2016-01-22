@@ -4,7 +4,7 @@
 <html>
     <jsp:include page="head.jsp" />    
     <body>
-        <div class="global">
+        <div class="home-global">
             <!-- HOME HEADER -->
             <div class="container-fluid home-header">
                 <div class="container header">
@@ -34,21 +34,21 @@
             <!-- //HOME BRAND -->
             <!-- HOME REGISTER FORM -->
             <div class="container-fluid form">
-                <form method="POST" name="home-register" data-react="0" action="indexController">
+                <form method="POST" name="home-register" data-react="0" action="cadastro">
                     <div class="container form-content">
                         <div class="form-title">Seja bem-vindo!</div>
                         <div class="form-minus">O cadastro é rápido, nós prometemos :)</div>
                         <div class="col-lg-6 col-md-6">
-                            <input name="reg-name" type="text" class="form-control" placeholder="Nome" data-name="Nome">
+                            <input name="reg-name" type="text" class="form-control" placeholder="Nome" data-name="Nome" value="Maycon">
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <input name="reg-aftername" type="text" class="form-control" placeholder="Sobrenome" data-name="Sobrenome">
+                            <input name="reg-aftername" type="text" class="form-control" placeholder="Sobrenome" data-name="Sobrenome" value="Teixeira">
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <input name="reg-email" type="text" class="form-control" placeholder="E-mail" data-name="Email">
+                            <input name="reg-email" type="text" class="form-control" placeholder="E-mail" data-name="Email" value="tmaycon1@gmail.com">
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <input name="reg-pass" type="password" class="form-control" placeholder="Senha" data-name="Senha">
+                            <input name="reg-pass" type="password" class="form-control" placeholder="Senha" data-name="Senha" value="abc123">
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="col-lg-12">
@@ -227,7 +227,7 @@
                             </div>                       
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <input name="reg-repass" type="password" class="form-control" placeholder="Repita a senha" data-name="Repetir Senha">
+                            <input name="reg-repass" type="password" class="form-control" placeholder="Repita a senha" data-name="Repetir Senha" value="abc123">
                         </div>
                         <div class="reg-sex col-lg-6 col-md-6">
                             <div class="col-lg-12">

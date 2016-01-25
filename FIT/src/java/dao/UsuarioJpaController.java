@@ -1456,5 +1456,22 @@ public class UsuarioJpaController implements Serializable {
         }
     }
     
+    public Usuario checkEmailAndPassword(String email, String password){
+        
+        String query = "SELECT user FROM Usuario user WHERE user.email = :email "
+                + "and user.senha = :password"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("email", email);       
+        q.setParameter("password", password);       
+        
+        try{
+            return (Usuario) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
     
 }

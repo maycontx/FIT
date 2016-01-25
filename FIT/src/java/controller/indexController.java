@@ -9,6 +9,7 @@ import dao.UsuarioJpaController;
 import helper.validation;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
@@ -23,7 +24,7 @@ import model.Usuario;
  *
  * @author Tiago
  */
-@WebServlet(name = "indexController", urlPatterns = {"/indexController"})
+@WebServlet(name = "indexController", urlPatterns = {"/cadastro"})
 public class indexController extends HttpServlet {
 
     /**
@@ -63,7 +64,15 @@ public class indexController extends HttpServlet {
             request.setAttribute("message", message);
             rd.forward(request, response);
             //
-        } else {
+        } else if (new UsuarioJpaController(emf).checkEmail(validate.getEmail()) != null) {
+            //manda mensagem de erro para a página
+            
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            String message = "Já existe um cadastro com este e-mail.";
+            request.setAttribute("message", message);
+            rd.forward(request, response);
+            //
+        }else{
             //Preenche o usuário e grava
             Usuario user = new Usuario();
             user.setNome(validate.getName());
@@ -71,6 +80,11 @@ public class indexController extends HttpServlet {
             user.setEmail(validate.getEmail());
             user.setSenha(validate.getPassword());
             user.setNascimento(validate.convertDate(validate.getBirthdate()));
+            if (validate.getSex().equals("M"))
+                user.setSexo("Masculino");
+            else
+                user.setSexo("Feminino");
+            user.setCredito(BigDecimal.ZERO);
 
             new UsuarioJpaController(emf).create(user);
             

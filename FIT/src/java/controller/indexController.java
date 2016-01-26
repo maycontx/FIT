@@ -6,6 +6,7 @@
 package controller;
 
 import dao.UsuarioJpaController;
+import helper.Session;
 import helper.validation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -86,7 +87,17 @@ public class indexController extends HttpServlet {
                 user.setSexo("Feminino");
             user.setCredito(BigDecimal.ZERO);
 
+            // ADICIONANDO O USUARIO NO BANCO DE DADOS
             new UsuarioJpaController(emf).create(user);
+            
+            // LOGANDO O USUARIO
+            new Session(user.getEmail(), user.getSenha(), request).login(false);
+            
+            // REDIRECIONANDO
+            RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
+            request.setAttribute("page", "cadastro");
+            request.setAttribute("usuario", request.getSession().getAttribute("user"));
+            rd.forward(request, response);
             
         }
     }

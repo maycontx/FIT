@@ -6,6 +6,7 @@
 package helper;
 
 import dao.UsuarioJpaController;
+import static java.rmi.server.LogStream.log;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class Session{
         this.request = request;
     }
 
-    public Usuario login() {
+    public Usuario login(boolean keep) {
 
         // CONEXÃO COM O BANCO
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
@@ -41,7 +42,7 @@ public class Session{
 
         //INICIA A SESSÃO SE O USER NÃO FOR NULO
         if (user != null) {
-            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("user", user);            
         }
         return user;
     }

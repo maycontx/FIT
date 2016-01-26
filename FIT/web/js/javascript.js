@@ -1,3 +1,16 @@
+/*
+ * 
+ * LOGIN VAR
+ */
+var homeLogin = {
+    show: function(){
+        $("div[data-id='login-content']").animate({
+           right: "0"         
+        });
+        $("div[data-id='login-content']").delay(5000).css("z-index", 0);
+    }
+};
+
 /* 
  * BIRTHDATE MANIPULATION
  * */
@@ -161,6 +174,8 @@ var homeRegister = {
     }
 };
 
+// GATILHOS ---------------------------------------------------------------------------------- //
+
 $(document).ready(function(){
     // DISPARO DA VALIDAÇÃO FRONT END
     $("form[name='home-register']").submit(function(e){
@@ -195,6 +210,16 @@ $(document).ready(function(){
     $("select[name='reg-year']").change(function(){
         $("select[name='reg-mon']").val(0);
         $("select[name='reg-day']").val(0);
+    });
+    
+    // GATILHO PARA MOSTRAR O LOGIN
+    $("div[data-id='login']").click(function(){
+        homeLogin.show();
+    });
+    
+    // GATILHO PARA SUBMETER O FORMULARIO DE LOGIN
+    $("div[data-id='submit-home-login']").click(function(){
+       $("form[name='login-form']").submit(); 
     });
 });
 

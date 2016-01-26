@@ -12,9 +12,10 @@ HEADER
 
 .home-header .header{    
     text-align: right;
+    position: relative;    
 }
 
-.home-header .header > div{
+.home-header .header > .header-item{
     position: relative;
     display: inline-block;
     color: #ffffff;
@@ -23,7 +24,7 @@ HEADER
     font-size: 14px;
 }
 
-.home-header .header > div:hover{
+.home-header .header > .header-item:hover{
     color: #cccccc;
     cursor: pointer;
 }
@@ -34,6 +35,55 @@ HEADER
     top: -23px;
     right: 5px;
     font-size: 18px;    
+}
+
+/* LOGIN CONTENT IN HEADER */
+.login-content{
+    width: 400px;
+    padding: 5px;
+    position: absolute;
+    top: 65px;
+    right: -600px;
+    border: 1px solid #777777;
+    background: rgba(36, 116, 72, 0.86);
+    border-top: 0;
+    box-shadow: 2px 4px 7px #CCCCCC;   
+    color: #fff;
+}
+
+.login-content form > div{
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.login-content form > .login-btn-content{
+    
+}
+
+.login-content form > div input{
+    border: 1px solid #999999;
+}
+
+.login-content form > div label{
+    font-weight: normal;
+    margin-left: 5px;
+    margin-bottom: 0;
+    position: relative;
+    top: -2px;
+}
+
+.login-content form > div .login-btn{
+    cursor: pointer;
+}
+
+.login-content form > div .login-btn:hover{
+    color: #cccccc;
+}
+
+.login-content form > div .login-btn .glyphicon-menu-right{
+    font-size: 10px;
 }
 
 /*

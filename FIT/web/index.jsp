@@ -8,14 +8,30 @@
             <!-- HOME HEADER -->
             <div class="container-fluid home-header">
                 <div class="container header">
-                    <div>
+                    <div class="header-item">
                         <i class="fa fa-question-circle"></i>Como funciona
                     </div>
-                    <div>
+                    <div class="header-item">
                         <i class="fa fa-info-circle"></i>Sobre
                     </div>
-                    <div>
-                        <i class="fa fa-flag"></i>Explore nossa comunidade
+                    <div data-id="login" class="header-item">
+                        <i class="fa fa-flag"></i>Explore nossa comunidade / Login
+                    </div>
+                    <div data-id="login-content" class="login-content">
+                        <form name="login-form" action="login" method="POST">
+                            <div class="col-lg-6">
+                                <input name="log-email" type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="log-pass" type="password" class="form-control" placeholder="Senha">
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="log-keep" name="log-keep" type="checkbox"><label for="log-keep">Manter conectado</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="login-btn" data-id="submit-home-login">Conectar <span class="glyphicon glyphicon-menu-right"></span></div>                                
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -27,7 +43,7 @@
                     <div class="brand-text">Seu espaço fitness na internet.</div>
                     <div class="brand-buttons">
                         <button class="btn btn-primary"><i class="fa fa-facebook"></i> Conecte-se com Facebook</button>
-                        <button class="btn btn-success"><i class="fa fa-envelope"></i> Conecte-se usando seu e-mail</button>
+                        <button class="btn btn-success"><i class="fa fa-google"></i> Conecte-se com Google</button>
                     </div>
                 </div>
             </div>

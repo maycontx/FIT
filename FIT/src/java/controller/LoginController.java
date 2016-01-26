@@ -3,42 +3,37 @@ package controller;
 import helper.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
+import sun.rmi.runtime.Log;
 
-/**
- *
- * @author asdfrofl
- */
-@WebServlet(name = "CadastroController", urlPatterns = {"/concluir-cadastro"})
-public class CadastroController extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        Usuario user = new Usuario();
-        user.setNome("Maycon");
-        user.setSobrenome("Teixeira");
-        user.setEmail("tmaycon1@gmail.com");
-        user.setSenha("fdsfds");
-        user.setNascimento(new Date());
-        user.setSexo("Masculino");
-        user.setCredito(BigDecimal.ZERO);
-
-        RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
-        request.setAttribute("page", "cadastro");
-        request.setAttribute("usuario", user);
-
-        rd.forward(request, response);
-
+        
+        String email = request.getParameter("log-email");
+        String pass = request.getParameter("log-pass");        
+        
+        // KEEP EH TRUE SE MANTER CONECTADO ESTIVER SELECIONADO
+        boolean keep = request.getParameter("log-keep") != null;
+        
+        Usuario user = new Session(email, pass, request).login(keep);
+        if ( user != null ){
+            log("LOGADO COM SUCESSO!");
+        }else{
+            log("ERRO");
+        }
+        
+       
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

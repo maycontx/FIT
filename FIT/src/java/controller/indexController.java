@@ -91,7 +91,7 @@ public class indexController extends HttpServlet {
             new UsuarioJpaController(emf).create(user);
             
             // LOGANDO O USUARIO
-            new Session(user.getEmail(), user.getSenha(), request).login(false);
+            new Session(user.getEmail(), user.getSenha(), request, response).createCookie(false);
             
             // REDIRECIONANDO
             RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");

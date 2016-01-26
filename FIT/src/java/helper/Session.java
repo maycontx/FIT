@@ -6,43 +6,57 @@
 package helper;
 
 import dao.UsuarioJpaController;
-import static java.rmi.server.LogStream.log;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
 
 /**
  *
  * @author Tiago
  */
-public class Session{
+public class Session {
 
     //VARIÁVEIS
     private HttpServletRequest request;
+    private HttpServletResponse response;
     private String email, senha;
     //
-    
+
+    // CONEXÃO COM O BANCO
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+    //
+
     public Session() {
     }
 
-    public Session(String email, String senha, HttpServletRequest request) {
+    public Session(HttpServletRequest request, HttpServletResponse response) {
+        this.request = request;
+        this.response = response;
+    }
+
+    public Session(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public Session(String email, String senha, HttpServletRequest request, HttpServletResponse response) {
         this.email = email;
         this.senha = senha;
         this.request = request;
+        this.response = response;
     }
 
-    public Usuario login(boolean keep) {
-
-        // CONEXÃO COM O BANCO
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+    public Usuario login() {
 
         //BUSCANDO O USUÁRIO PELO EMAIL E SENHA
         Usuario user = new UsuarioJpaController(emf).checkEmailAndPassword(email, senha);
 
         //INICIA A SESSÃO SE O USER NÃO FOR NULO
         if (user != null) {
-            request.getSession().setAttribute("user", user);            
+            request.getSession().setAttribute("user", user);
         }
         return user;
     }
@@ -50,6 +64,62 @@ public class Session{
     public void logout() {
         // DESTROI A SESSÃO
         request.getSession().invalidate();
+        
+        //RECUPERANDO OS COOKIES GRAVADOS
+        Cookie[] cookies = request.getCookies();
+        //ENCONTRANDO O COOKIE FIT
+        for (Cookie c : cookies) {
+            if (c.getName().equals("fitLogin")) {
+                //REMOVENDO COOKIE
+                request.getSession().removeAttribute("fitLogin");
+            }
+        }
+        
+    }
+
+    public Usuario createCookie(boolean keep) {
+
+        //BUSCANDO O USUÁRIO PELO EMAIL E SENHA
+        Usuario user = new UsuarioJpaController(emf).checkEmailAndPassword(email, senha);
+
+        if (user != null) {
+            //CRIA O COOKIE DO LOGIN
+            Cookie cookieLogin = new Cookie("fitLogin", user.getEmail());
+            if (keep) {
+                //DEFINE VALIDADE DE 1 ANO
+                cookieLogin.setMaxAge(60 * 60 * 24 * 360);
+            } else {
+                //DEFINE VALIDADE ATE EXPIRAR A SESSÃO
+                cookieLogin.setMaxAge(-1);
+            }
+            response.addCookie(cookieLogin);
+        }
+
+        return login();
+    }
+
+    public Usuario findCookie() {
+
+        //VARIÁVEL QUE VAI RECEBER O EMAIL QUE ESTIVER NO COOKIE
+        String login = null;
+        //RECUPERANDO OS COOKIES GRAVADOS
+        Cookie[] cookies = request.getCookies();
+        //ENCONTRANDO O COOKIE FIT
+        for (Cookie c : cookies) {
+            if (c.getName().equals("fitLogin")) {
+                login = c.getValue();
+            }
+        }
+        if (login != null) {
+            //BUSCA USUARIO PELO EMAIL
+            Usuario user = new UsuarioJpaController(emf).checkEmail(login);
+            //SETA EMAIL E SENHA QUE SERA USADO PELO MÉTODO LOGIN
+            email = user.getEmail();
+            senha = user.getSenha();
+
+            return login();
+        }
+        return null;
     }
 
     public String getEmail() {
@@ -75,7 +145,5 @@ public class Session{
     public void setRequest(HttpServletRequest request) {
         this.request = request;
     }
-    
-    
 
 }

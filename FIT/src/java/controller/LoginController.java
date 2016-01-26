@@ -23,8 +23,8 @@ public class LoginController extends HttpServlet {
         
         // KEEP EH TRUE SE MANTER CONECTADO ESTIVER SELECIONADO
         boolean keep = request.getParameter("log-keep") != null;
-        
-        Usuario user = new Session(email, pass, request).login(keep);
+        //CRIA O COOKIE E LOGA
+        Usuario user = new Session(email, pass, request, response).createCookie(keep);
         if ( user != null ){
             log("LOGADO COM SUCESSO!");
         }else{

@@ -84,7 +84,7 @@ public class Session {
 
         if (user != null) {
             //CRIA O COOKIE DO LOGIN
-            Cookie cookieLogin = new Cookie("fitLogin", user.getEmail());
+            Cookie cookieLogin = new Cookie("fitLogin", user.getEmail());            
             if (keep) {
                 //DEFINE VALIDADE DE 1 ANO
                 cookieLogin.setMaxAge(60 * 60 * 24 * 360);
@@ -110,10 +110,10 @@ public class Session {
                 login = c.getValue();
             }
         }
-        if (login != null) {
-            //BUSCA USUARIO PELO EMAIL
-            Usuario user = new UsuarioJpaController(emf).checkEmail(login);
-            //SETA EMAIL E SENHA QUE SERA USADO PELO MÉTODO LOGIN
+        if (login != null) {            
+            // BUSCA USUARIO PELO EMAIL
+            Usuario user = new UsuarioJpaController(emf).checkEmail(login);            
+            // SETA EMAIL E SENHA QUE SERA USADO PELO MÉTODO LOGIN
             email = user.getEmail();
             senha = user.getSenha();
 

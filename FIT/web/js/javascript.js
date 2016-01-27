@@ -1,5 +1,40 @@
 /*
- * 
+ * GLOBAL ALERTA
+ */
+var global = {
+    alert: function(text){
+        $("div[class='global-alert']").each(function(){
+           $(this).remove(); 
+        });
+        
+        var alert = $("<div>");
+               
+        alert.html("<span class='glyphicon glyphicon-alert'></span>" + text);
+        alert.addClass("global-alert");
+        
+        alert.appendTo("body");
+        alert.slideDown(200).delay(3000).slideUp(100);
+        
+    }
+};
+
+/*
+ * VARIAVEL DE FINALIZACAO DE CADASTRO
+ */
+var finishRegister = {
+    input: function(acctype){
+        $("input[name='acctype-ajax']").val(acctype);        
+    },
+    validation: function(){
+        var acctype = $("input[name='acctype-ajax']").val();        
+        if (acctype != "Atleta" && acctype != "Personal" && acctype != "Nutricionista")
+            return false;        
+        return true;
+            
+    }
+};
+
+/*
  * LOGIN VAR
  */
 var homeLogin = {
@@ -220,6 +255,20 @@ $(document).ready(function(){
     // GATILHO PARA SUBMETER O FORMULARIO DE LOGIN
     $("div[data-id='submit-home-login']").click(function(){
        $("form[name='login-form']").submit(); 
+    });
+    
+    // GATILHO PARA ALTERAÇÃO DO TIPO DE CONTA NA CONCLUSÃO DE CADASTRO
+    $("input[name='acctype']").change(function(){
+        finishRegister.input($(this).val());        
+    });
+    
+    // GATILHO PARA SUBMISSAO DO FORMULARIO DE CONCLUSÃO DE CADASTRO
+    $("form[name='finish-register-form'] input[type='submit']").click(function(e){
+        e.preventDefault();
+        if ( finishRegister.validation() == true )
+            $(this).parent("form").submit();
+        else
+            global.alert("Escolha o tipo de conta desejado.");
     });
 });
 

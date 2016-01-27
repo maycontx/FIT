@@ -79,3 +79,27 @@ a:hover{
     background: #247448;
     color: #ffffff;
 }
+
+.global-alert{
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(109, 9, 9, 0.85);
+    color: #fff;
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: bold;
+    bottom: 100px;
+    display: none;
+}
+
+.global-alert span{
+    font-size: 20px;
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+    font-weight: normal;
+    color: #fff;
+}

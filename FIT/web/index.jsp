@@ -1,5 +1,32 @@
+<%@page import="javax.persistence.Persistence"%>
+<%@page import="dao.UsuarioJpaController"%>
+<%@page import="helper.Session"%>
+<%@page import="model.Usuario"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    Usuario user = new Session(request, response).findCookie();
+    if (user != null){
+        /*  ANTES DISSO TEMOS Q VERIFICAR SE O CADASTRO DO USUARIO ESTÁ COMPLETO
+            SE ESTIVER MANDAMOS PRO TEMPLATE PADRAO
+            SENAO MANDAMOS PRA CONCLUSAO DE CADASTRO */       
+        RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
+        request.setAttribute("page", "cadastro");
+        
+        // PROCURANDO COOKIE
+        Cookie[] cookies = request.getCookies();
+        String email = "";
+        for (Cookie c : cookies) {
+            if (c.getName().equals("fitLogin")) {
+                email = c.getValue();
+            }
+        }
+        
+        user = new UsuarioJpaController(Persistence.createEntityManagerFactory("FITPU")).checkEmail(email);
+        request.setAttribute("usuario", user);
+        rd.forward(request, response);
+    }    
+%>
 <!DOCTYPE html>
 <html>
     <jsp:include page="head.jsp" />    

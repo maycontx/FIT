@@ -60,32 +60,39 @@ CONCLUSAO DE CADASTRO
 #finish-register .btn-group .img-radio{
     width: 33.33333%;
     background-color: #ffffff;
-    border: 0;
+    border: 1px solid transparent;
     padding: 5px;
 }
 
 #finish-register .btn-group .img-radio:hover{   
-    background-color: #f5f5f5;  
+    background-color: rgba(36, 116, 72, 0.18);
+    border: 1px solid #247448;
 }
 
 #finish-register .btn-group .active{   
-    background-color: #eeeeee;
+    background-color: rgba(36, 116, 72, 0.18);
+    border: 1px solid #247448;
 }
 
-#finish-register .btn-group .img-radio img{
-    width: 100%;
-    float: left;
+#finish-register .btn-group .img-radio .img-recipe{    
+    background-color: #247448;
+    text-align: center;
+    padding: 10px 5px;
+    height: 150px;
+}
+
+#finish-register .btn-group .img-radio img{       
     clear: both;
 }
 
 #finish-register .btn-group .img-radio .radio-title{
     float: left;
     text-align: center;
-    color: #333;
-    font-weight: bold;
+    color: #ffffff;    
     width: 100%;
     letter-spacing: 1px;
     margin-bottom: 10px;
+    background-color: #247448;
 }
 
 #finish-register .btn-group .img-radio .radio-info{
@@ -109,6 +116,13 @@ CONCLUSAO DE CADASTRO
 #finish-register .btn-group .img-radio .radio-info .glyphicon-thumbs-down{
     color: red;
 }
+
+#finish-register .btn-group div[class^='col']{
+    margin-top: 10px;
+    text-align: center;
+}
+
+
 
 
 

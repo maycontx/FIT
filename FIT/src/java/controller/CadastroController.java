@@ -1,16 +1,22 @@
 package controller;
 
+import dao.AtletaJpaController;
+import dao.CorpoJpaController;
 import helper.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Atleta;
+import model.Corpo;
 import model.Usuario;
 
 /**
@@ -23,22 +29,40 @@ public class CadastroController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        //Conexão com o Banco
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
 
-        Usuario user = new Usuario();
-        user.setNome("Maycon");
-        user.setSobrenome("Teixeira");
-        user.setEmail("tmaycon1@gmail.com");
-        user.setSenha("fdsfds");
-        user.setNascimento(new Date());
-        user.setSexo("Masculino");
-        user.setCredito(BigDecimal.ZERO);
-
-        RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
-        request.setAttribute("page", "cadastro");
-        request.setAttribute("usuario", user);
-
-        rd.forward(request, response);
-
+        // RECEBENDO O VALOR DO TIPO DE CONTA
+        String acctype = request.getParameter("acctype-ajax");
+        
+        // RECUPERANDO O USUÁRIO DA SESSÃO        
+        Usuario user = (Usuario) request.getSession().getAttribute("user");
+        
+        if ( acctype.equals("Atleta") ){
+            
+            // INSTANCIANDO UM ATLETA
+            Atleta ath = new Atleta();
+            
+            // INSERINDO O USUARIO NO ATLETA
+            ath.setIdusuario(user);
+            
+            // INSTANCIANDO UM CORPO 
+            Corpo body = new Corpo();
+            
+            // FALTA INSERIR O CORP(COM UMA ID) NO ATLETA
+            // FAZER UM METODO NA DAO DO CORPO PRA INSERIR UM CORPO E RETORNAR O INSERT ID                   
+            
+            // new AtletaJpaController(emf).create(ath);
+        
+        }else if( acctype.equals("Personal") ){
+        
+        }else if( acctype.equals("Nutricionista") ){
+        
+        }else{
+        
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

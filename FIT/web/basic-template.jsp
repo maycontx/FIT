@@ -2,14 +2,10 @@
 <%@page import="helper.Session"%>
 <%
     Usuario user = new Session(request, response).findCookie();
-
-    if (user != null) {
-        //CARREGA A PAGINA NORMALMENTE
-    } else {
-        //REDIRECIONA PARA PAGINA DE LOGIN
-    }
-    //OBS: SE DER CERTO ESSE CÓDIGO TEMOS QUE COPIAR PRA INDEX TAMBÉM
-    // PORQUE ELA NÃO USA O TEMPLATE
+    if (user == null){
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");       
+        rd.forward(request, response);
+    }    
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

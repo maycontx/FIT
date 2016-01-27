@@ -34,7 +34,7 @@ public class CorpoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Corpo corpo) {
+    public long create(Corpo corpo) {
         if (corpo.getAtletaList() == null) {
             corpo.setAtletaList(new ArrayList<Atleta>());
         }
@@ -64,6 +64,8 @@ public class CorpoJpaController implements Serializable {
                 em.close();
             }
         }
+        
+        return corpo.getIdcorpo();
     }
 
     public void edit(Corpo corpo) throws IllegalOrphanException, NonexistentEntityException, Exception {

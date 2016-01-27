@@ -3,6 +3,7 @@ package controller;
 import dao.AtletaJpaController;
 import dao.CorpoJpaController;
 import helper.Session;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -50,10 +51,14 @@ public class CadastroController extends HttpServlet {
             // INSTANCIANDO UM CORPO 
             Corpo body = new Corpo();
             
-            // FALTA INSERIR O CORP(COM UMA ID) NO ATLETA
-            // FAZER UM METODO NA DAO DO CORPO PRA INSERIR UM CORPO E RETORNAR O INSERT ID                   
+            // INSERE UM CORPO NO BANCO DE DADOS, RECUPERA SEU ID E ALTERA NO OBJECTO INSTANCIADO
+            body.setIdcorpo( (int) new CorpoJpaController(emf).create(body) );
             
-            // new AtletaJpaController(emf).create(ath);
+            // ADICIONA O CORPO NO ATLETA
+            ath.setIdcorpo(body);
+            
+            // INSERE O ATLETA NO BANCO DE DADOS
+            new AtletaJpaController(emf).create(ath);
         
         }else if( acctype.equals("Personal") ){
         

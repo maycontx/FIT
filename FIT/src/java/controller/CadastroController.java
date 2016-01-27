@@ -2,12 +2,17 @@ package controller;
 
 import dao.AtletaJpaController;
 import dao.CorpoJpaController;
+import dao.NutricionistaJpaController;
+import dao.PersonalJpaController;
+import dao.ProfissionalJpaController;
 import helper.Session;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Atleta;
 import model.Corpo;
+import model.Nutricionista;
+import model.Personal;
+import model.Profissional;
 import model.Usuario;
 
 /**
@@ -59,15 +67,72 @@ public class CadastroController extends HttpServlet {
             
             // INSERE O ATLETA NO BANCO DE DADOS
             new AtletaJpaController(emf).create(ath);
+            
+            // CHAMA O REDIRECIONAMENTO
+            sendToProfile(request, response);
         
         }else if( acctype.equals("Personal") ){
+            
+            // INSTANCIANDO PROFISSIONAL
+            Profissional prof = new Profissional();
+            
+            // INSERINDO O USUARIO NO PROFISSIONAL
+            prof.setIdusuario(user);
+            // INSERE UM PROFISSIONAL NO BANCO DE DADOS, RECUPERA SEU ID E ALTERA NO OBJECTO INSTANCIADO
+            prof.setIdprofissional((int) new ProfissionalJpaController(emf).create(prof));
+            
+            // INSTANCIANDO PERSONAL
+            Personal pers = new Personal();
+            
+            // INSERINDO O PROFISSIONAL NO PERSONAL
+            pers.setIdprofissional(prof);
+            
+            // INSERE O PERSONAL NO BANCO
+            new PersonalJpaController(emf).create(pers);
+            
+            // CHAMA O REDIRECIONAMENTO
+            sendToProfile(request, response);
         
         }else if( acctype.equals("Nutricionista") ){
         
+            // INSTANCIANDO PROFISSIONAL
+            Profissional prof = new Profissional();
+            
+            // INSERINDO O USUARIO NO PROFISSIONAL
+            prof.setIdusuario(user);
+            // INSERE UM PROFISSIONAL NO BANCO DE DADOS, RECUPERA SEU ID E ALTERA NO OBJECTO INSTANCIADO
+            prof.setIdprofissional((int) new ProfissionalJpaController(emf).create(prof));
+            
+            // INSTANCIANDO O NUTRICIONISTA
+            Nutricionista nutri = new Nutricionista();
+            
+            // INSERINDO O PROFISSIONAL NO NUTRICIONISTA
+            nutri.setIdprofissional(prof);
+            
+            // INSERE O NUTRICIONISTA NO BANCO
+            new NutricionistaJpaController(emf).create(nutri);
+            
+            // CHAMA O REDIRECIONAMENTO
+            sendToProfile(request, response);
+            
         }else{
         
         }
         
+    }
+    
+    public void sendToProfile(HttpServletRequest request, HttpServletResponse response){
+        try {
+            // REDIRECIONANDO
+            RequestDispatcher rd = request.getRequestDispatcher("main-template.jsp");
+            request.setAttribute("page", "profile");
+            request.setAttribute("usuario", request.getSession().getAttribute("user"));
+            rd.forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(CadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

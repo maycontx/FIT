@@ -40,7 +40,7 @@ public class ProfissionalJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Profissional profissional) {
+    public long create(Profissional profissional) {
         if (profissional.getMensagempreconsultoriaList() == null) {
             profissional.setMensagempreconsultoriaList(new ArrayList<Mensagempreconsultoria>());
         }
@@ -169,6 +169,8 @@ public class ProfissionalJpaController implements Serializable {
                 em.close();
             }
         }
+        
+        return profissional.getIdprofissional();
     }
 
     public void edit(Profissional profissional) throws IllegalOrphanException, NonexistentEntityException, Exception {

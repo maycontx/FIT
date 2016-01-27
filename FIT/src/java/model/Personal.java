@@ -38,7 +38,7 @@ public class Personal implements Serializable {
     @Column(nullable = false)
     private Integer idpersonal;
     @Basic(optional = false)
-    @Column(nullable = false, length = 255)
+    @Column(length = 255)
     private String seguimento;
     @JoinColumn(name = "idprofissional", referencedColumnName = "idprofissional", nullable = false)
     @ManyToOne(optional = false)

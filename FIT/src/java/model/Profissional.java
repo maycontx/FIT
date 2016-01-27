@@ -52,7 +52,7 @@ public class Profissional implements Serializable {
     private Integer idprofissional;
     @Basic(optional = false)
     @Lob
-    @Column(nullable = false, length = 65535)
+    @Column(length = 65535)
     private String descricao;
     private Integer ranking;
     private Integer reputacao;

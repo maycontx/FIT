@@ -5,6 +5,7 @@
  */
 package model;
 
+import dao.UsuarioJpaController;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,12 +14,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -147,7 +150,21 @@ public class Usuario implements Serializable {
         this.sexo = sexo;
         this.credito = credito;
     }
-
+    
+    public boolean checkingCompletionRegister(){
+        
+        //Conexão com o Banco
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+        //Verifica se user concluiu cadastro como atleta ou profissional
+        Atleta atl = new UsuarioJpaController(emf).checkingRegisterAtleta(idusuario);
+        Profissional prof = new UsuarioJpaController(emf).checkingRegisterProfissional(idusuario);
+        
+        if(atl != null || prof != null){
+            return true;
+        }
+        return false;
+    }
+    
     public Integer getIdusuario() {
         return idusuario;
     }

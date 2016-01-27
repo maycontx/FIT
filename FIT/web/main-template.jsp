@@ -1,3 +1,12 @@
+<%@page import="helper.Session"%>
+<%@page import="model.Usuario"%>
+<%
+    Usuario user = new Session(request, response).findCookie();
+    if (user == null){
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");       
+        rd.forward(request, response);
+    }    
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

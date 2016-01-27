@@ -6,6 +6,10 @@
 package helper;
 
 import dao.UsuarioJpaController;
+import dao.exceptions.NonexistentEntityException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.Cookie;
@@ -57,6 +61,8 @@ public class Session {
         //INICIA A SESSÃO SE O USER NÃO FOR NULO
         if (user != null) {
             request.getSession().setAttribute("user", user);
+            //ATUALIZA DATA ULTIMO LOGIN
+            updateLastLogin(user);
         }
         return user;
     }
@@ -120,6 +126,17 @@ public class Session {
             return login();
         }
         return null;
+    }
+    
+    private void updateLastLogin(Usuario user) {
+        user.setUltimoLogin(new Date());
+        try {
+            new UsuarioJpaController(emf).edit(user);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getEmail() {

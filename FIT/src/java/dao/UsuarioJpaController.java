@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Atleta;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -1468,6 +1469,36 @@ public class UsuarioJpaController implements Serializable {
         
         try{
             return (Usuario) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public Atleta checkingRegisterAtleta(int id){
+        
+        String query = "SELECT a FROM Atleta a WHERE "
+                + " a.idusuario.idusuario = :id"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (Atleta) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public Profissional checkingRegisterProfissional(int id){
+        
+        String query = "SELECT p FROM Profissional p WHERE "
+                + "  p.idusuario.idusuario = :id"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (Profissional) q.getSingleResult();
         }catch(Exception ex){
             return null;
         }

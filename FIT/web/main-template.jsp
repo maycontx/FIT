@@ -1,10 +1,17 @@
 <%@page import="helper.Session"%>
 <%@page import="model.Usuario"%>
 <%
+    // RECEBE STATUS DO PROCESSO
+    String status = (String) request.getAttribute("status");
+    // CHECA DE HÁ ALGUM COOKIE
     Usuario user = new Session(request, response).findCookie();
-    if (user == null){
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");       
-        rd.forward(request, response);
+    // CHECA SE HÁ ALGUM STATUS E SE É DIFERENTE DE LOGIN
+    if ( status != null && !status.equals("login") ){
+        // SE NÃO HOUVER USUARIO, REDIRECIONA PRA INDEX
+        if (user == null){
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");       
+            rd.forward(request, response);
+        }   
     }    
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

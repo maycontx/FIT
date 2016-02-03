@@ -63,7 +63,7 @@ public class Session {
             request.getSession().setAttribute("user", user);
             //ATUALIZA DATA ULTIMO LOGIN
             updateLastLogin(user);
-        }
+        }        
         return user;
     }
 

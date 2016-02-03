@@ -6,7 +6,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     Usuario user = new Session(request, response).findCookie();
-
     if (user != null) {
 
         //TRUE = CADASTRO CONCLUIDO / FALSE = CONCLUSÃO DE CADASTRO PENDENTE

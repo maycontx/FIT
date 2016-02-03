@@ -36,7 +36,7 @@ HEADER
 /*
 CONTEUDO
 */
-article{
+.global-bt article{
     border-radius: 2px;
     margin: 30px auto 20px;
     border: 1px solid #247448;

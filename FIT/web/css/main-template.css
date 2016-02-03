@@ -1,0 +1,90 @@
+/*
+GLOBAL
+*/
+body .global-mt{
+    font-family: "Montserrat", arial;
+    padding-bottom: 10px;
+}
+
+/*
+HEADER
+*/
+.main-menu{
+    position: fixed;
+    background: #333333;
+    width: 220px;
+    height: 100%;
+}
+
+.main-menu .header-logo{
+    margin-top: 20px;
+    float: left;
+    clear: both;
+    width: 100%;
+    text-align: center;
+}
+
+.main-menu .menu{
+    width: 100%;
+    float: left;    
+    margin-top: 20px;
+    padding-top: 10px;    
+}
+
+.main-menu .menu .menu-item{
+    width: 100%;
+    padding: 10px;
+    color: #ffffff;
+    text-transform: uppercase;    
+    cursor: pointer;
+    font-size: 12px;
+    
+}
+
+.main-menu .menu .menu-item:hover{
+    background: #222222;
+}
+
+.main-menu .menu .menu-item span{
+    float: right;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.main-menu .menu .menu-title{    
+    width: 100%;   
+    color: #ffffff;
+    text-transform: uppercase;    
+    letter-spacing: 1px;
+    font-size: 9px;
+    padding-left: 5px;
+    margin-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #3C3B3B;
+}
+
+.main-menu .menu .menu-title:first-child{
+    margin-top: 5px;
+}
+
+.main-menu .menu .menu-title span{
+    float: right;
+    margin-right: 3px;
+    cursor: pointer;
+        
+}
+
+.main-menu .menu .menu-title span:hover{
+    color: #cccccc;
+}
+
+.main-menu .menu .menu-item i{
+    margin-right: 5px;
+}
+
+/*
+CONTENT
+*/
+.global-mt article{
+    margin-left: 225px;
+}

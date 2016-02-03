@@ -6,7 +6,7 @@
         </div>
         <div class="user-info">
             <div>
-                <span class="glyphicon glyphicon-user"></span> ${usuario.nome} ${usuario.sobrenome} 
+                <span class="glyphicon glyphicon-user"></span> ${user.nome} ${user.sobrenome} 
             </div>           
         </div>
     </div>

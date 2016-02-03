@@ -2,14 +2,13 @@ package controller;
 
 import helper.Session;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
-import sun.rmi.runtime.Log;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -25,10 +24,24 @@ public class LoginController extends HttpServlet {
         boolean keep = request.getParameter("log-keep") != null;
         //CRIA O COOKIE E LOGA
         Usuario user = new Session(email, pass, request, response).createCookie(keep);
-        if ( user != null ){
-            log("LOGADO COM SUCESSO!");
+        if ( user != null ){            
+            //TRUE = CADASTRO CONCLUIDO / FALSE = CONCLUSÃO DE CADASTRO PENDENTE
+            if ( user.checkingCompletionRegister() ) {
+                RequestDispatcher rd = request.getRequestDispatcher("main-template.jsp");
+                request.setAttribute("page", "timeline");
+                request.setAttribute("user", user);
+                request.setAttribute("status", "login");
+                rd.forward(request, response);                
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
+                request.setAttribute("page", "cadastro");
+                request.setAttribute("user", user);
+                request.setAttribute("status", "login");
+                rd.forward(request, response);
+            }
         }else{
-            log("ERRO");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp?DASUHDAS");
+            rd.forward(request, response);
         }
         
        

@@ -9,7 +9,6 @@ import dao.UsuarioJpaController;
 import helper.Session;
 import helper.validation;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -43,7 +42,7 @@ public class indexController extends HttpServlet {
         
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
-        
+                  
         //Passando os valores para classe de validação
         validation validate = new validation();
         validate.setName(request.getParameter("reg-name"));

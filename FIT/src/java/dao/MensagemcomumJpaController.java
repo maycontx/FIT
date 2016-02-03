@@ -193,4 +193,19 @@ public class MensagemcomumJpaController implements Serializable {
         }
     }
     
+    public List<Mensagemcomum> findNewMessage(int id){
+        
+        String query = "SELECT m FROM Mensagemcomum m WHERE m.status = 'Enviada' "
+                + " and m.idAtletaDestinatario.idatleta = :id"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return  (List<Mensagemcomum>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

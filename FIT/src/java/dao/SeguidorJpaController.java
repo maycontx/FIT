@@ -193,4 +193,19 @@ public class SeguidorJpaController implements Serializable {
         }
     }
     
+    public List<Seguidor> findFollowers(int id){
+        
+        String query = "SELECT s FROM Seguidor s WHERE "
+                + "  s.idseguido.idusuario = :id"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (List<Seguidor>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

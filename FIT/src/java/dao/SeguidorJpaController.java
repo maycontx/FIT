@@ -207,5 +207,5 @@ public class SeguidorJpaController implements Serializable {
             return null;
         }
     }
-    
+        
 }

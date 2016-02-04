@@ -507,4 +507,35 @@ public class PublicacaoJpaController implements Serializable {
         }
     }
     
+    public List<Publicacao> findPublicationsUser(int id){
+        
+        String query = "SELECT p FROM Publicacao p WHERE "
+                + "  p.idusuario.idusuario = :id order by p.data desc"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (List<Publicacao>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public List<Publicacao> findPublicationsUserFollowed(int id){
+        
+        String query = "SELECT p FROM Publicacao p, Seguidor s WHERE "
+                + "  s.idseguidor.idusuario = :id and s.idseguido.idusuario "
+                + " = p.idusuario.idusuario order by p.data desc"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (List<Publicacao>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

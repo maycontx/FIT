@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.Nutricionista;
+import model.Personal;
 import model.Profissional;
 
 /**
@@ -162,6 +163,21 @@ public class NutricionistaJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Nutricionista findNutriByProfissional(Profissional prof){
+        
+        String query = "SELECT nutri FROM Nutricionista nutri WHERE nutri.idprofissional = :user"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("prof", prof.getIdprofissional());       
+        
+        try{
+            return (Nutricionista) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
         }
     }
     

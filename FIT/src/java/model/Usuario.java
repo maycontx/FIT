@@ -74,6 +74,8 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 10)
     private String sexo;
+    @Column(length = 15)
+    private String tipo;
     @Column(length = 255)
     private String cidade;
     @Column(length = 255)
@@ -140,7 +142,7 @@ public class Usuario implements Serializable {
         this.idusuario = idusuario;
     }
 
-    public Usuario(Integer idusuario, String nome, String sobrenome, String email, String senha, Date nascimento, String sexo, BigDecimal credito) {
+    public Usuario(Integer idusuario, String nome, String sobrenome, String email, String senha, Date nascimento, String sexo, String tipo, BigDecimal credito) {
         this.idusuario = idusuario;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -148,6 +150,7 @@ public class Usuario implements Serializable {
         this.senha = senha;
         this.nascimento = nascimento;
         this.sexo = sexo;
+        this.tipo = tipo;
         this.credito = credito;
     }
     
@@ -219,6 +222,14 @@ public class Usuario implements Serializable {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getCidade() {

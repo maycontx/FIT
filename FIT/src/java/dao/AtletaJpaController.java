@@ -20,6 +20,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import model.Atleta;
+import model.Profissional;
 import model.Solicitacaorelacionamento;
 import model.Relacionamento;
 
@@ -416,6 +417,21 @@ public class AtletaJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Atleta findAthByUser(Usuario user){
+        
+        String query = "SELECT ath FROM Atleta ath WHERE ath.idusuario.idusuario = :user"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("user", user.getIdusuario());       
+        
+        try{
+            return (Atleta) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
         }
     }
     

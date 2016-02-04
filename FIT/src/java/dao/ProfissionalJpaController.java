@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import model.Atleta;
 import model.Consultoria;
 import model.Personal;
 import model.Solicitacaorelacionamento;
@@ -498,6 +499,21 @@ public class ProfissionalJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Profissional findProfissionalByUser(Usuario user){
+        
+        String query = "SELECT prof FROM Profissional prof WHERE prof.idusuario.idusuario = :user"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("user", user.getIdusuario());       
+        
+        try{
+            return (Profissional) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
         }
     }
     

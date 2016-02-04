@@ -1,7 +1,12 @@
 package controller;
 
+import dao.MensagemcomumJpaController;
+import dao.SeguidorJpaController;
+import helper.Injection;
 import helper.Session;
 import java.io.IOException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,20 +22,31 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        //Conexão com o Banco
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+
+        
         String email = request.getParameter("log-email");
         String pass = request.getParameter("log-pass");        
         
         // KEEP EH TRUE SE MANTER CONECTADO ESTIVER SELECIONADO
         boolean keep = request.getParameter("log-keep") != null;
         //CRIA O COOKIE E LOGA
-        Usuario user = new Session(email, pass, request, response).createCookie(keep);
+        Usuario user = new Session(email, pass, request, response).createCookie(keep);        
+        // INSTANCIANDO INJECTION
+        Injection injection = new Injection(request, emf);
         if ( user != null ){            
             //TRUE = CADASTRO CONCLUIDO / FALSE = CONCLUSÃO DE CADASTRO PENDENTE
             if ( user.checkingCompletionRegister() ) {
+                log("FDFDSF DS" + String.valueOf(user.getIdusuario()));
                 RequestDispatcher rd = request.getRequestDispatcher("main-template.jsp");
-                request.setAttribute("page", "timeline");
-                request.setAttribute("user", user);
+                // INJETANDO DADOS DO TEMPLATE PRINCIPAL
+                injection.mainTemplate(user);
+                // INJETANDO DADOS DA TIMELINE
+                injection.timeline(); 
+                // STATUS A PARTIR DESTE CONTROLLER
                 request.setAttribute("status", "login");
+                // SEGUINDO
                 rd.forward(request, response);                
             } else {
                 RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
@@ -40,7 +56,7 @@ public class LoginController extends HttpServlet {
                 rd.forward(request, response);
             }
         }else{
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp?DASUHDAS");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
         

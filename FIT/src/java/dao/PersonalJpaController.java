@@ -14,8 +14,10 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import model.Atleta;
 import model.Personal;
 import model.Profissional;
+import model.Usuario;
 
 /**
  *
@@ -162,6 +164,21 @@ public class PersonalJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Personal findPersonalByProfissional(Profissional prof){
+        
+        String query = "SELECT person FROM Personal person WHERE person.idprofissional = :user"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("prof", prof.getIdprofissional());       
+        
+        try{
+            return (Personal) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
         }
     }
     

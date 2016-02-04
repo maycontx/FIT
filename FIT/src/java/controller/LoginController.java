@@ -37,22 +37,25 @@ public class LoginController extends HttpServlet {
         Injection injection = new Injection(request, emf);
         if ( user != null ){            
             //TRUE = CADASTRO CONCLUIDO / FALSE = CONCLUSÃO DE CADASTRO PENDENTE
-            if ( user.checkingCompletionRegister() ) {
-                log("FDFDSF DS" + String.valueOf(user.getIdusuario()));
+            if ( user.checkingCompletionRegister() ) {                
                 RequestDispatcher rd = request.getRequestDispatcher("main-template.jsp");
                 // INJETANDO DADOS DO TEMPLATE PRINCIPAL
                 injection.mainTemplate(user);
                 // INJETANDO DADOS DA TIMELINE
-                injection.timeline(); 
+                injection.timeline(user); 
                 // STATUS A PARTIR DESTE CONTROLLER
                 request.setAttribute("status", "login");
                 // SEGUINDO
                 rd.forward(request, response);                
             } else {
                 RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
-                request.setAttribute("page", "cadastro");
-                request.setAttribute("user", user);
+                // INJETANDO DADOS DO TEMPLATE BÁSICO
+                injection.basicTemplate(user);                
+                // INJETANDO DADOS DA PÁGINA DE CADASTRO
+                injection.register(user);
+                // STATUS A PARTIR DESTE CONTROLLER
                 request.setAttribute("status", "login");
+                // SEGUINDO
                 rd.forward(request, response);
             }
         }else{

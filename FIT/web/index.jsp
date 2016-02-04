@@ -1,3 +1,5 @@
+<%@page import="javax.persistence.EntityManagerFactory"%>
+<%@page import="helper.Injection"%>
 <%@page import="javax.persistence.Persistence"%>
 <%@page import="dao.UsuarioJpaController"%>
 <%@page import="helper.Session"%>
@@ -8,16 +10,26 @@
     Usuario user = new Session(request, response).findCookie();
     if (user != null) {
 
+        // CONEXÃO
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+        // INSTANCIANDO INJECTION
+        Injection injection = new Injection(request, emf);
         //TRUE = CADASTRO CONCLUIDO / FALSE = CONCLUSÃO DE CADASTRO PENDENTE
         if (user.checkingCompletionRegister()) {
             RequestDispatcher rd = request.getRequestDispatcher("main-template.jsp");
-            request.setAttribute("page", "timeline");
-            request.setAttribute("user", user);
+            // INJETANDO DADOS DO TEMPLATE PRINCIPAL
+            injection.mainTemplate(user);
+            // INJETANDO DADOS DA TIMELINE
+            injection.timeline(user);
+            // SEGUINDO
             rd.forward(request, response);
         } else {
             RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
-            request.setAttribute("page", "cadastro");
-            request.setAttribute("user", user);
+            // INJETANDO DADOS DO TEMPLATE BÁSICO
+            injection.basicTemplate(user);
+            // INJETANDO DADOS DA PÁGINA DE CADASTRO
+            injection.register(user);            
+            // SEGUINDO
             rd.forward(request, response);
         }
     }

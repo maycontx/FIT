@@ -43,7 +43,7 @@
             <div class="radio-info"><span class="glyphicon glyphicon-thumbs-up"></span> Realizar consultas</div>
         </label>
         <div class="col-lg-12">
-            <form action="concluir-cadastro" name="finish-register-form">  
+            <form action="concluir-cadastro" name="finish-register-form" method="POST">  
                 <input type="hidden" name="acctype-ajax" value="0">
                 <input type="submit" class="btn btn-success" value="Finalizar cadastro">
             </form>           

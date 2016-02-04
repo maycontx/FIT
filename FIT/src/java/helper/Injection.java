@@ -5,11 +5,15 @@ import dao.MensagemcomumJpaController;
 import dao.NutricionistaJpaController;
 import dao.PersonalJpaController;
 import dao.ProfissionalJpaController;
+import dao.PublicacaoJpaController;
 import dao.SeguidorJpaController;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.servlet.http.HttpServletRequest;
 import model.Atleta;
 import model.Profissional;
+import model.Publicacao;
 import model.Usuario;
 
 public class Injection {
@@ -26,6 +30,18 @@ public class Injection {
         this.request = request;
     }
     
+    // TEMPLATE BÁSICO
+    public void basicTemplate(Usuario user){
+        // ENVIA O USUARIO EM SUA FORMA CURTA
+        request.setAttribute("user", user);
+    }
+
+    // PAGINA DE COMPLETAR CADASTRO
+    public void register(Usuario user){
+        request.setAttribute("page", "register");
+    }
+
+    // TEMPLATE PRINCIPAL
     public void mainTemplate(Usuario user){
         
         // ENVIA O OBJETO DO USUARIO COMPLETO JA TIPADO (ATLETA, PERSONAL OU NUTRI) COM NOME DE typed
@@ -37,8 +53,18 @@ public class Injection {
                 
     }
 
-    public void timeline() {
+    public void timeline(Usuario user) {
+        // INJETANDO A PÁGINA
         request.setAttribute("page", "timeline");
+        // INJETANDO PUBLICAÇÕES
+        List<Publicacao> posts = new PublicacaoJpaController(emf).findPublicationsUserFollowed(user.getIdusuario());
+        request.setAttribute("posts", posts);
+        
+    }
+    
+    public void profile(Usuario user) {
+        // INJETANDO A PÁGINA
+        request.setAttribute("page", "profile");  
     }
     
     public void setUserTyped(Usuario user){       

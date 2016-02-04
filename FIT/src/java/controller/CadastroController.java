@@ -5,6 +5,9 @@ import dao.CorpoJpaController;
 import dao.NutricionistaJpaController;
 import dao.PersonalJpaController;
 import dao.ProfissionalJpaController;
+import dao.UsuarioJpaController;
+import dao.exceptions.NonexistentEntityException;
+import helper.Injection;
 import helper.Session;
 import java.awt.BorderLayout;
 import java.io.IOException;
@@ -48,28 +51,40 @@ public class CadastroController extends HttpServlet {
         // RECUPERANDO O USUÁRIO DA SESSÃO        
         Usuario user = (Usuario) request.getSession().getAttribute("user");
         
-        if ( acctype.equals("Atleta") ){
-            
-            // INSTANCIANDO UM ATLETA
-            Atleta ath = new Atleta();
-            
-            // INSERINDO O USUARIO NO ATLETA
-            ath.setIdusuario(user);
-            
-            // INSTANCIANDO UM CORPO 
-            Corpo body = new Corpo();
-            
-            // INSERE UM CORPO NO BANCO DE DADOS, RECUPERA SEU ID E ALTERA NO OBJECTO INSTANCIADO
-            body.setIdcorpo( (int) new CorpoJpaController(emf).create(body) );
-            
-            // ADICIONA O CORPO NO ATLETA
-            ath.setIdcorpo(body);
-            
-            // INSERE O ATLETA NO BANCO DE DADOS
-            new AtletaJpaController(emf).create(ath);
-            
-            // CHAMA O REDIRECIONAMENTO
-            sendToProfile(request, response);
+        // SETA O TIPO DE USUARIO
+        user.setTipo(acctype);
+        
+        // ALTERA NO BANCO
+        try {            
+            new UsuarioJpaController(emf).edit(user);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(CadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CadastroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if ( acctype.equals("Atleta") ){            
+           
+                // INSTANCIANDO UM ATLETA
+                Atleta ath = new Atleta();
+                
+                // INSERINDO O USUARIO NO ATLETA
+                ath.setIdusuario(user);
+                
+                // INSTANCIANDO UM CORPO
+                Corpo body = new Corpo();
+                
+                // INSERE UM CORPO NO BANCO DE DADOS, RECUPERA SEU ID E ALTERA NO OBJECTO INSTANCIADO
+                body.setIdcorpo( (int) new CorpoJpaController(emf).create(body) );
+                
+                // ADICIONA O CORPO NO ATLETA
+                ath.setIdcorpo(body);
+                
+                // INSERE O ATLETA NO BANCO DE DADOS
+                new AtletaJpaController(emf).create(ath);
+                
+                // CHAMA O REDIRECIONAMENTO
+                sendToProfile(request, response, emf, user);           
         
         }else if( acctype.equals("Personal") ){
             
@@ -91,7 +106,7 @@ public class CadastroController extends HttpServlet {
             new PersonalJpaController(emf).create(pers);
             
             // CHAMA O REDIRECIONAMENTO
-            sendToProfile(request, response);
+            sendToProfile(request, response, emf, user);
         
         }else if( acctype.equals("Nutricionista") ){
         
@@ -113,7 +128,7 @@ public class CadastroController extends HttpServlet {
             new NutricionistaJpaController(emf).create(nutri);
             
             // CHAMA O REDIRECIONAMENTO
-            sendToProfile(request, response);
+            sendToProfile(request, response, emf, user);
             
         }else{
         
@@ -121,12 +136,17 @@ public class CadastroController extends HttpServlet {
         
     }
     
-    public void sendToProfile(HttpServletRequest request, HttpServletResponse response){
+    // REDIRECIONAMENTO
+    public void sendToProfile(HttpServletRequest request, HttpServletResponse response, EntityManagerFactory emf, Usuario user){
+        // INSTANCIANDO INJECTION
+        Injection injection = new Injection(request, emf);
         try {
             // REDIRECIONANDO
             RequestDispatcher rd = request.getRequestDispatcher("main-template.jsp");
-            request.setAttribute("page", "profile");
-            request.setAttribute("usuario", request.getSession().getAttribute("user"));
+            // INJETANDO DADOS DO TEMPLATE PRINCIPAL
+            injection.mainTemplate(user);
+            // INJETANDO OS DADOS DO PERFIL
+            injection.profile(user);
             rd.forward(request, response);
         } catch (ServletException ex) {
             Logger.getLogger(CadastroController.class.getName()).log(Level.SEVERE, null, ex);

@@ -283,4 +283,19 @@ public class EventoJpaController implements Serializable {
         }
     }
     
+    public List<Evento> findEventsByUser(int id){
+        
+        String query = "SELECT e FROM Evento e, Usuarioevento u WHERE "
+                + " u.idusuario.idusuario = :id and u.idevento.idevento = e.idevento "; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (List<Evento>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

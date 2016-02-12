@@ -134,7 +134,7 @@ public class Usuario implements Serializable {
     private List<Pagamento> pagamentoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idusuario")
     private List<Comentariopublicacao> comentariopublicacaoList;
-
+    
     public Usuario() {
     }
 
@@ -479,7 +479,7 @@ public class Usuario implements Serializable {
     public void setComentariopublicacaoList(List<Comentariopublicacao> comentariopublicacaoList) {
         this.comentariopublicacaoList = comentariopublicacaoList;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

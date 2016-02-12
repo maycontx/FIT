@@ -283,4 +283,19 @@ public class GrupoJpaController implements Serializable {
         }
     }
     
+    public List<Grupo> findGroupsByUser(int id){
+        
+        String query = "SELECT g FROM Grupo g, Usuariogrupo u WHERE "
+                + " u.idusuario.idusuario = :id and u.idgrupo.idgrupo = g.idgrupo "; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("id", id);       
+        
+        try{
+            return (List<Grupo>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

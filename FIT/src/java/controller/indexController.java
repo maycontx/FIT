@@ -5,6 +5,8 @@
  */
 package controller;
 
+import dao.EventoJpaController;
+import dao.GrupoJpaController;
 import dao.PublicacaoJpaController;
 import dao.UsuarioJpaController;
 import helper.Session;
@@ -20,6 +22,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Evento;
+import model.Grupo;
 import model.Publicacao;
 import model.Usuario;
 
@@ -45,7 +49,7 @@ public class indexController extends HttpServlet {
         
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
-                        
+                      
         //Passando os valores para classe de validação
         validation validate = new validation();
         validate.setName(request.getParameter("reg-name"));

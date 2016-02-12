@@ -1,5 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:forEach items="${posts}" var="post">
-    Autor: ${post.idusuario.nome}<br />
-    Texto: ${post.idtexto.texto} <br /><br /><br /><br />
+    <div class="post">
+        <div class="post-header">
+            <div class="header-img">
+                <img src="#">
+            </div>
+            <div class="header-info">
+                <div class="header-author">
+                    <a href="#">${post.idusuario.nome}</a> publicou
+                </div>
+                <div class="header-date">
+                    ${post.data}
+                </div>
+            </div>            
+        </div>
+        <div class="post-content">
+            ${post.idtexto.texto}
+        </div>
+    </div>
 </c:forEach> 

@@ -86,5 +86,53 @@ HEADER
 CONTENT
 */
 .global-mt article{
-    margin-left: 225px;
+    padding-left: 225px;
+    float: left;  
+    min-height: 1200px;
+    background: #A5D8BC;
+}
+
+/*
+TIMELINE
+*/
+
+.post{
+    border: 1px solid #333;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    float: left;
+    background: #ffffff;
+}
+
+.post .post-header{
+    width: 100%;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.post .post-header .header-img{
+    float: left;
+    width: 40px;
+    height: 40px;    
+}
+
+.post .post-header .header-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.post .post-header .header-info{
+    float: left;
+    margin-left: 10px;
+}
+
+.post .post-header .header-info .header-author, .post .post-header .header-info .header-date{
+    width: 100%;
+    float: left;
+}
+
+.post .post-content{
+    float: left;
+    width: 100%;
 }

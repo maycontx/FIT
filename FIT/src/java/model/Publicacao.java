@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -118,8 +119,30 @@ public class Publicacao implements Serializable {
         this.tipoMidia = tipoMidia;
     }
 
-    public Date getData() {
-        return data;
+    public String getData() {
+        
+        long miliseconds = (( new Date().getTime() - data.getTime() ) / 60) / 1000;        
+         
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm");  
+           
+        if ( miliseconds < 60 )
+            return miliseconds + " min";
+        else if ( miliseconds >= 60 && miliseconds < 1440)
+            return miliseconds/60 + " h";
+        else if ( miliseconds >= 1440 && miliseconds < 4320)
+            return miliseconds/1440 + " dias";
+        else{
+            int year = data.getYear();
+            if ( new Date().getYear() > year ){
+                SimpleDateFormat date = new SimpleDateFormat("dd/MMMM/yyyy"); 
+                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                return comp;
+            }else{
+                SimpleDateFormat date = new SimpleDateFormat("dd/MMMM"); 
+                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                return comp;
+            }
+        }
     }
 
     public void setData(Date data) {

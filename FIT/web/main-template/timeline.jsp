@@ -10,8 +10,7 @@
                     <a href="#">${post.idusuario.nome}</a> publicou
                 </div>
                 <div class="header-date">
-                    <c:set var="paymentValueCode" value='${helper.Helper.dateValidation()}'/>
-                    ${paymentValueCode}
+                    ${post.data}
                 </div>
             </div>            
         </div>

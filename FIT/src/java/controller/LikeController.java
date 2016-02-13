@@ -1,11 +1,18 @@
 package controller;
 
+import dao.LikesJpaController;
+import dao.PublicacaoJpaController;
 import java.io.IOException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Likes;
+import model.Publicacao;
+import model.Usuario;
 
 @WebServlet(name = "LikeController", urlPatterns = {"/LikeController"})
 public class LikeController extends HttpServlet {
@@ -28,9 +35,22 @@ public class LikeController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/plain");  
+        response.setCharacterEncoding("UTF-8"); 
+        
+        //Conexão com o Banco
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+        
+        Publicacao post = new PublicacaoJpaController(emf).findPublicacao(Integer.parseInt(request.getParameter("post")));
+        Usuario user = (Usuario) request.getSession().getAttribute("user");
+        
+        Likes like = new Likes();
+        like.setIdpublicacao(post);
+        like.setIdusuario(user);
+        
+        new LikesJpaController(emf).create(like);
+       
     }
 
     /**

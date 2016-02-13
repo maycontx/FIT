@@ -1,8 +1,11 @@
 $(document).on("click", "div[data-id='like']", function(){   
+    var post = $(this).attr("data-info");
     $.ajax({
-        type: "POST",
-        url: "LikeController",
-        dataType: "json",
+        type: "GET",
+        data: {
+            "post": post
+        },
+        url: "LikeController",        
         success: function (data) {
             alert(data);
         },

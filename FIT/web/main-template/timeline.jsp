@@ -31,23 +31,28 @@
                     </div>                
                 </c:if>
             </div>
-            <div class="post-data">
+            <div class="post-data">                
                 <div>
                     <span class="glyphicon glyphicon-heart"></span>
-                    10
+                    ${post.getLikesList().size()}
                 </div>
                 <div>
                     <span class="glyphicon glyphicon-bullhorn"></span>
-                    10
+                    ${post.getComentariopublicacaoList().size()}
                 </div>
                 <div>
                     <span class="glyphicon glyphicon-send"></span>
-                    10
+                    ${post.getCompartilhamentoList().size()}
                 </div>
             </div>
             <div class="post-btn">
-                <div data-id="like">
+                <div data-id="like" data-info="${post.idpublicacao}">
                     <span class="glyphicon glyphicon-heart"></span>
+                    <c:forEach items="${post.getLikesList()}" var="like">
+                        <c:if test="${like.idusuario.idusuario == user.idusuario}">
+                            Likez
+                        </c:if>                       
+                    </c:forEach>
                     Like
                 </div>
                 <div>

@@ -194,4 +194,19 @@ public class LikesJpaController implements Serializable {
         }
     }
     
+    public List<Likes> findLikesByPublication(int idpublicacao){
+        
+        String query = "SELECT l FROM Likes l WHERE "
+                + "  l.idpublicacao.idpublicacao = :idpublicacao"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("idpublicacao", idpublicacao);       
+        
+        try{
+            return (List<Likes>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

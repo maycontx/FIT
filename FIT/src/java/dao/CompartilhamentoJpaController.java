@@ -223,4 +223,19 @@ public class CompartilhamentoJpaController implements Serializable {
         }
     }
     
+    public List<Compartilhamento> findSharesByPublication(int idpublicacao){
+        
+        String query = "SELECT c FROM Compartilhamento c WHERE "
+                + "  c.idpublicacao.idpublicacao = :idpublicacao"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("idpublicacao", idpublicacao);       
+        
+        try{
+            return (List<Compartilhamento>) q.getResultList();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

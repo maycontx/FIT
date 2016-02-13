@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -118,8 +119,39 @@ public class Publicacao implements Serializable {
         this.tipoMidia = tipoMidia;
     }
 
-    public Date getData() {
-        return data;
+    public String getData() {
+        
+        // CAPTURA A DIFERENÇA ENTRE AS DATA EM MILISEGUNDOS E CONVERTE PARA MINUTOS
+        long miliseconds = (( new Date().getTime() - data.getTime() ) / 60) / 1000;        
+         
+        // FORMATA A HORA
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm");  
+           
+        if ( miliseconds < 60 )
+            // RETORNAR EM SITUAÇÕES MENOR DE UMA HORA
+            return miliseconds + " min";
+        else if ( miliseconds >= 60 && miliseconds < 1440)
+            // RETORNAR EM SITUAÇÕES MENOR DE UM DIA
+            return miliseconds/60 + " h";
+        else if ( miliseconds >= 1440 && miliseconds < 4320)
+            // RETORNAR EM SITUAÇÕES ENTRE 1 E 3 DIAS
+            return miliseconds/1440 + " dias";
+        else{
+            // CAPTURA O ANO
+            int year = data.getYear();
+            // CHECA SE O ANO DA PUBLICACAO EH MENOR QUE O ATUAL
+            if ( new Date().getYear() > year ){
+                // FORMATO COM ANO PARA PUBLICACOES DO ANO ANTERIOR
+                SimpleDateFormat date = new SimpleDateFormat("dd/MMMM/yyyy"); 
+                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                return comp;
+            }else{
+                // FORMATO COM ANO PARA PUBLICACOES DO MESMO ANO
+                SimpleDateFormat date = new SimpleDateFormat("dd/MMMM"); 
+                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                return comp;
+            }
+        }
     }
 
     public void setData(Date data) {

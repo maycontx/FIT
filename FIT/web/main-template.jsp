@@ -20,7 +20,7 @@
     <jsp:include page="head.jsp" />
     <div class="global-mt">
             <jsp:include page="main-template/header.jsp" /> 
-            <article>           
+            <article class="container-fluid">           
                 <%
                     // RECEBENDO O PARAMETRO POR GET
                     String pageRequest = request.getParameter("page");

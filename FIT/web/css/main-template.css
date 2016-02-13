@@ -2,8 +2,8 @@
 GLOBAL
 */
 body .global-mt{
-    font-family: "Montserrat", arial;
-    padding-bottom: 10px;
+    font-family: "Montserrat", arial;    
+    position: relative;
 }
 
 /*
@@ -86,19 +86,24 @@ HEADER
 CONTENT
 */
 .global-mt article{
-    padding-left: 225px;
-    float: left;  
+    padding-left: 225px;   
     min-height: 1200px;
-    background-color: #CDD4D0;
+    background-color: #CDD4D0;   
+    border-right: 1px solid #247448;
 }
 
 /*
 TIMELINE
 */
 
+.posts{
+    float: left;
+    max-width: 630px;
+}
+
 .post{
     position: relative !important;
-    border: 1px solid #247448;
+    border: 1px solid #ACCAB9;
     width: 610px;
     margin: 10px;
     padding: 10px;
@@ -149,6 +154,11 @@ TIMELINE
     max-width: 540px;
     border: 1px solid #777;
     border-radius: 1px;
+}
+
+/* VIDEO POST */
+.post .post-content .post-video iframe{
+    width: 540px;
 }
 
 .post .post-data{

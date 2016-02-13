@@ -65,7 +65,8 @@ public class Imagem implements Serializable {
     private Date data;
     @OneToMany(mappedBy = "idimagem")
     private List<Publicacao> publicacaoList;
-
+    @OneToMany(mappedBy = "perfil")
+    private List<Usuario> usuarioList;
     public Imagem() {
     }
 

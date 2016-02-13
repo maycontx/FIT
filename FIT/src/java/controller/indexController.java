@@ -49,7 +49,7 @@ public class indexController extends HttpServlet {
         
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
-                      
+                             
         //Passando os valores para classe de validação
         validation validate = new validation();
         validate.setName(request.getParameter("reg-name"));

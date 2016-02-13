@@ -18,6 +18,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -82,6 +84,9 @@ public class Usuario implements Serializable {
     private String estado;
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimoLogin;
+    @JoinColumn(name = "perfil", referencedColumnName = "idimagem")
+    @ManyToOne
+    private Imagem perfil;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(nullable = false, precision = 10, scale = 2)

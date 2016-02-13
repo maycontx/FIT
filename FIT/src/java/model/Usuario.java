@@ -269,6 +269,14 @@ public class Usuario implements Serializable {
         this.credito = credito;
     }
 
+    public Imagem getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Imagem perfil) {
+        this.perfil = perfil;
+    }
+
     @XmlTransient
     public List<Atleta> getAtletaList() {
         return atletaList;

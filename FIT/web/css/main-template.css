@@ -89,7 +89,7 @@ CONTENT
     padding-left: 225px;
     float: left;  
     min-height: 1200px;
-    background: #A5D8BC;
+    background-color: #CDD4D0;
 }
 
 /*
@@ -97,12 +97,14 @@ TIMELINE
 */
 
 .post{
-    border: 1px solid #8CCAA8;
-    width: 80%;
+    position: relative !important;
+    border: 1px solid #247448;
+    width: 610px;
     margin: 10px;
     padding: 10px;
     float: left;
     background: #ffffff;
+    border-radius: 4px;    
 }
 
 .post .post-header{
@@ -135,4 +137,57 @@ TIMELINE
 .post .post-content{
     float: left;
     width: 100%;
+    padding-right: 50px;
+}
+
+/* IMAGE POST */
+.post .post-content .post-image, .post .post-content .post-video{
+    margin-top: 10px;    
+}
+
+.post .post-content .post-image img{
+    max-width: 540px;
+    border: 1px solid #777;
+    border-radius: 1px;
+}
+
+.post .post-data{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;    
+    padding: 5px 10px;
+}
+
+.post .post-data div{
+    margin-bottom: 10px;
+}
+
+.post .post-data div span{
+    font-size: 16px;
+    margin-right: 2px;
+}
+
+.post .post-btn{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #A5D8BC;
+    margin-top: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.post .post-btn div{
+    display: inline-block;
+    margin-right: 30px;
+    cursor: pointer;
+    color: #333333;    
+}
+
+.post .post-btn div:hover{
+    color: #247448;
+}
+
+.post .post-btn div span{
+    margin-right: 3px;
 }

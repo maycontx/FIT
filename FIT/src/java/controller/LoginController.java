@@ -60,6 +60,7 @@ public class LoginController extends HttpServlet {
             }
         }else{
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            request.setAttribute("status", "loginFail");
             rd.forward(request, response);
         }
         

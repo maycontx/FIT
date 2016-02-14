@@ -51,7 +51,7 @@
                     <div data-id="login" class="header-item">
                         <i class="fa fa-flag"></i>Explore nossa comunidade / Login
                     </div>
-                    <div data-id="login-content" class="login-content">
+                    <div data-id="login-content" class="login-content" <c:if test="${status == 'loginFail'}">fail="1"</c:if>>
                         <form name="login-form" action="login" method="POST">
                             <div class="col-lg-6">
                                 <input name="log-email" type="text" class="form-control" placeholder="Email">
@@ -66,6 +66,11 @@
                                 <div class="login-btn" data-id="submit-home-login">Conectar <span class="glyphicon glyphicon-menu-right"></span></div>                                
                             </div>
                         </form>
+                        <c:if test="${status == 'loginFail'}">                                
+                            <div class="login-report">
+                                <span class='glyphicon glyphicon-alert'></span> Usuário ou senha incorretos
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>

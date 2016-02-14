@@ -39,10 +39,8 @@ var finishRegister = {
  */
 var homeLogin = {
     show: function(){
-        $("div[data-id='login-content']").animate({
-           right: "0"         
-        });
-        $("div[data-id='login-content']").delay(5000).css("z-index", 0);
+        $("div[data-id='login-content']").show();
+        $("input[name='log-email']").focus();
     }
 };
 
@@ -270,5 +268,25 @@ $(document).ready(function(){
         else
             global.alert("Escolha o tipo de conta desejado.");
     });
+    
+    // GATILHO PARA PASSAR O FOCO DO EMAIL PARA A SENHA NA TELA DE LOGIN
+    $("input[name='log-email']").keypress(function(event){	
+	var keycode = (event.keyCode ? event.keyCode : event.which);
+	if( keycode == "13" ){
+		$("input[name='log-pass']").focus();	
+	}
+    });
+    
+    // GATILHO PARA SUBMETER O LOGIN SE O FOCO FOR O CAMPO SENHA
+    $("input[name='log-pass']").keypress(function(event){	
+	var keycode = (event.keyCode ? event.keyCode : event.which);
+	if( keycode == "13" ){
+		$("form[name='login-form']").submit();	
+	}
+    });
+    
+    // EM CASO DE FALHA DE LOGIN MANTER FORM APARENTE
+    if ( $(".login-content").attr("fail") == "1" )
+        $(".login-content").css("display", "block");
 });
 

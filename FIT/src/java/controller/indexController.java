@@ -11,6 +11,7 @@ import dao.GrupoJpaController;
 import dao.LikesJpaController;
 import dao.PublicacaoJpaController;
 import dao.UsuarioJpaController;
+import helper.Injection;
 import helper.Session;
 import helper.validation;
 import java.io.IOException;
@@ -49,11 +50,11 @@ public class indexController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");        
-        
+        response.setContentType("text/html;charset=UTF-8");
+
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
-                                    
+
         //Passando os valores para classe de validação
         validation validate = new validation();
         validate.setName(request.getParameter("reg-name"));
@@ -69,7 +70,7 @@ public class indexController extends HttpServlet {
         //Verifica o resultado da validação
         if (validate.validationRegister()) {
             //manda mensagem de erro para a página
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             String message = "Um dos campos apresenta erro. Por favor, insira seus dados corretamente.";
             request.setAttribute("message", message);
@@ -77,13 +78,13 @@ public class indexController extends HttpServlet {
             //
         } else if (new UsuarioJpaController(emf).checkEmail(validate.getEmail()) != null) {
             //manda mensagem de erro para a página
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             String message = "Já existe um cadastro com este e-mail.";
             request.setAttribute("message", message);
             rd.forward(request, response);
             //
-        }else{
+        } else {
             //Preenche o usuário e grava
             Usuario user = new Usuario();
             user.setNome(validate.getName());
@@ -91,24 +92,33 @@ public class indexController extends HttpServlet {
             user.setEmail(validate.getEmail());
             user.setSenha(validate.getPassword());
             user.setNascimento(validate.convertDate(validate.getBirthdate()));
-            if (validate.getSex().equals("M"))
+            if (validate.getSex().equals("M")) {
                 user.setSexo("Masculino");
-            else
+            } else {
                 user.setSexo("Feminino");
+            }
             user.setCredito(BigDecimal.ZERO);
 
             // ADICIONANDO O USUARIO NO BANCO DE DADOS
             new UsuarioJpaController(emf).create(user);
-            
+
             // LOGANDO O USUARIO
             new Session(user.getEmail(), user.getSenha(), request, response).createCookie(false);
-            
+
+            // INSTANCIANDO INJECTION
+            Injection injection = new Injection(request, emf);
+
             // REDIRECIONANDO
             RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
-            request.setAttribute("page", "cadastro");
-            request.setAttribute("usuario", request.getSession().getAttribute("user"));
+            // INJETANDO DADOS DO TEMPLATE BÁSICO
+            injection.basicTemplate(user);
+            // INJETANDO DADOS DA PÁGINA DE CADASTRO
+            injection.register(user);
+            // STATUS A PARTIR DESTE CONTROLLER
+            request.setAttribute("status", "login");
+            // SEGUINDO
             rd.forward(request, response);
-            
+
         }
     }
 

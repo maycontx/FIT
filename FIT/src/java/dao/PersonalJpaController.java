@@ -169,7 +169,7 @@ public class PersonalJpaController implements Serializable {
     
     public Personal findPersonalByProfissional(Profissional prof){
         
-        String query = "SELECT person FROM Personal person WHERE person.idprofissional = :user"; 
+        String query = "SELECT person FROM Personal person WHERE person.idprofissional.idprofissional = :prof"; 
         
         Query q = getEntityManager().createQuery(query);
         

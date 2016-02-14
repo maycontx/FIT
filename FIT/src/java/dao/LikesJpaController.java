@@ -209,4 +209,22 @@ public class LikesJpaController implements Serializable {
         }
     }
     
+    // ENCONTRAR LIKE POR USUARIO E PUBLICACAO
+    public Likes findLikesByUserAndPost(Publicacao post, Usuario user){
+        
+        String query = "SELECT l FROM Likes l WHERE "
+                + "  l.idpublicacao = :idpublicacao AND l.idusuario = :iduser"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        
+        q.setParameter("idpublicacao", post);
+        q.setParameter("iduser", user); 
+        
+        try{
+            return (Likes) q.getSingleResult();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
 }

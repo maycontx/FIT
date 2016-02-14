@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="posts">
     <c:forEach items="${posts}" var="post">
-        <div class="post">
+        <div class="post" data-info="${post.idpublicacao}">
             <div class="post-header">
                 <div class="header-img">
                     <img src="${post.idusuario.perfil.link}" alt="">
@@ -33,8 +33,8 @@
             </div>
             <div class="post-data">                
                 <div>
-                    <span class="glyphicon glyphicon-heart"></span>
-                    ${post.getLikesList().size()}
+                    <span data-id="like-count" class="glyphicon glyphicon-heart"></span>
+                    <span>${post.getLikesList().size()}</span>
                 </div>
                 <div>
                     <span class="glyphicon glyphicon-bullhorn"></span>
@@ -45,16 +45,19 @@
                     ${post.getCompartilhamentoList().size()}
                 </div>
             </div>
-            <div class="post-btn">
-                <div data-id="like" data-info="${post.idpublicacao}">
-                    <span class="glyphicon glyphicon-heart"></span>
-                    <c:forEach items="${post.getLikesList()}" var="like">
-                        <c:if test="${like.idusuario.idusuario == user.idusuario}">
-                            Likez
-                        </c:if>                       
-                    </c:forEach>
-                    Like
-                </div>
+            <div class="post-btn">                
+                <c:if test="${post.checkLikedPost(user, post.getLikesList()) == true}">
+                    <div data-id="like" class="liked">
+                        <span class="glyphicon glyphicon-heart"></span>
+                        Like                       
+                    </div>
+                </c:if>
+                <c:if test="${post.checkLikedPost(user, post.getLikesList()) == false}">
+                    <div data-id="like">
+                        <span class="glyphicon glyphicon-heart"></span>
+                        Like                       
+                    </div>
+                </c:if>                
                 <div>
                     <span class="glyphicon glyphicon-bullhorn"></span>
                     Comentar

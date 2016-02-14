@@ -194,8 +194,13 @@ TIMELINE
     color: #333333;    
 }
 
-.post .post-btn div:hover{
+.post .post-btn div a{
+    color: inherit;
+}
+
+.post .post-btn .liked, .post .post-btn div:hover{
     color: #247448;
+    font-weight: bold;
 }
 
 .post .post-btn div span{

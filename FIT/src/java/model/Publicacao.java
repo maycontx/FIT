@@ -7,6 +7,7 @@ package model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -135,7 +136,7 @@ public class Publicacao implements Serializable {
             return miliseconds/60 + " h";
         else if ( miliseconds >= 1440 && miliseconds < 4320)
             // RETORNAR EM SITUAÇÕES ENTRE 1 E 3 DIAS
-            return miliseconds/1440 + " dias";
+            return miliseconds/1440 + " dia(s)";
         else{
             // CAPTURA O ANO
             int year = data.getYear();
@@ -265,6 +266,18 @@ public class Publicacao implements Serializable {
     @Override
     public String toString() {
         return "model.Publicacao[ idpublicacao=" + idpublicacao + " ]";
+    }
+    
+    // CHECK POST LIKE
+    public boolean checkLikedPost(Usuario user, List<Likes> likes){
+    
+        for (Likes like : likes){
+            if ( like.getIdusuario().getIdusuario() == user.getIdusuario() )
+                return true; 
+        }
+        
+        return false;
+        
     }
     
 }

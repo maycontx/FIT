@@ -168,7 +168,7 @@ public class NutricionistaJpaController implements Serializable {
     
     public Nutricionista findNutriByProfissional(Profissional prof){
         
-        String query = "SELECT nutri FROM Nutricionista nutri WHERE nutri.idprofissional = :user"; 
+        String query = "SELECT nutri FROM Nutricionista nutri WHERE nutri.idprofissional.idprofissional = :prof"; 
         
         Query q = getEntityManager().createQuery(query);
         

@@ -103,13 +103,14 @@ TIMELINE
 
 .post{
     position: relative !important;
-    border: 1px solid #ACCAB9;
+    border: 1px solid #ACCAB9;    
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     width: 610px;
-    margin: 10px;
+    margin: 10px 10px 0;
     padding: 10px;
     float: left;
-    background: #ffffff;
-    border-radius: 4px;    
+    background: #ffffff;        
 }
 
 .post .post-header{
@@ -181,8 +182,8 @@ TIMELINE
 .post .post-btn{
     float: left;
     width: 100%;
-    border-top: 1px solid #A5D8BC;
-    margin-top: 10px;
+    border-top: 1px solid #E7E7E7;
+    margin-top: 20px;
     padding-top: 10px;
     text-align: center;
 }
@@ -205,4 +206,47 @@ TIMELINE
 
 .post .post-btn div span{
     margin-right: 3px;
+}
+
+/* POST COMMENT */
+.post-comment{
+    float: left;
+    margin: 0 10px 10px;
+    padding: 0 10px 10px;
+    width: 610px;
+    background-color: #ffffff;
+    border-left: 1px solid #ACCAB9;
+    border-right: 1px solid #ACCAB9;
+    border-bottom: 1px solid #ACCAB9;
+    display: none;
+}
+
+.post-comment .comment-box{
+    border-bottom: 1px solid #E7E7E7;
+    padding: 10px 0;
+    
+}
+
+.post-comment .comment-box .comment-header{
+    position: relative;
+}
+
+.post-comment .comment-box .comment-header div{
+    
+}
+
+.post-comment .comment-box .comment-header span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 12px;
+    color: #AAA;
+}
+
+.post-comment .comment-box .comment-body{
+   
+}
+
+.post-comment textarea{
+    
 }

@@ -159,8 +159,40 @@ public class Publicacao implements Serializable {
         this.data = data;
     }
 
-    public Date getUltimaEdicao() {
-        return ultimaEdicao;
+    public String getUltimaEdicao() {
+        
+        // CAPTURA A DIFERENÇA ENTRE AS DATA EM MILISEGUNDOS E CONVERTE PARA MINUTOS
+        long miliseconds = (( new Date().getTime() - data.getTime() ) / 60) / 1000;        
+         
+        // FORMATA A HORA
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm");  
+           
+        if ( miliseconds < 60 )
+            // RETORNAR EM SITUAÇÕES MENOR DE UMA HORA
+            return miliseconds + " min";
+        else if ( miliseconds >= 60 && miliseconds < 1440)
+            // RETORNAR EM SITUAÇÕES MENOR DE UM DIA
+            return miliseconds/60 + " h";
+        else if ( miliseconds >= 1440 && miliseconds < 4320)
+            // RETORNAR EM SITUAÇÕES ENTRE 1 E 3 DIAS
+            return miliseconds/1440 + " dia(s)";
+        else{
+            // CAPTURA O ANO
+            int year = data.getYear();
+            // CHECA SE O ANO DA PUBLICACAO EH MENOR QUE O ATUAL
+            if ( new Date().getYear() > year ){
+                // FORMATO COM ANO PARA PUBLICACOES DO ANO ANTERIOR
+                SimpleDateFormat date = new SimpleDateFormat("dd/MMMM/yyyy"); 
+                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                return comp;
+            }else{
+                // FORMATO COM ANO PARA PUBLICACOES DO MESMO ANO
+                SimpleDateFormat date = new SimpleDateFormat("dd/MMMM"); 
+                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                return comp;
+            }
+        }
+        
     }
 
     public void setUltimaEdicao(Date ultimaEdicao) {

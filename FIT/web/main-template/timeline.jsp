@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="posts">
     <c:forEach items="${posts}" var="post">
-        <div class="post" data-info="${post.idpublicacao}">
+        <div class="post" data-info="${post.idpublicacao}" comment="false">
             <div class="post-header">
                 <div class="header-img">
                     <img src="${post.idusuario.perfil.link}" alt="">
@@ -58,7 +58,7 @@
                         Like                       
                     </div>
                 </c:if>                
-                <div>
+                <div data-id="comment">
                     <span class="glyphicon glyphicon-bullhorn"></span>
                     Comentar
                 </div>
@@ -67,6 +67,27 @@
                     Compartilhar
                 </div>
             </div>
+        </div>
+        <div class="post-comment" data-info="comment-${post.idpublicacao}">
+            <c:forEach items="${post.getComentariopublicacaoList()}" var="comment">
+                <div class="comment-box">
+                    <div class="comment-header">
+                        <div><a href="#">${comment.idusuario.nome} ${comment.idusuario.sobrenome}</a> comentou</div>
+                        <span>
+                            <c:if test="${comment.ultimaEdicao == null}">
+                                ${comment.data}
+                            </c:if>
+                            <c:if test="${comment.ultimaEdicao != null}">
+                                Modificado por último ${comment.ultimaEdicao}
+                            </c:if>
+                        </span>
+                    </div>
+                    <div class="comment-body">
+                        ${comment.comentario}
+                    </div>
+                </div>
+            </c:forEach>
+            <textarea class="form-control" placeholder="Comentar como ${user.nome} ${user.sobrenome}..." rows="2"></textarea>
         </div>
     </c:forEach>
 </div>

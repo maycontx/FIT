@@ -224,7 +224,25 @@ TIMELINE
 .post-comment .comment-box{
     border-bottom: 1px solid #E7E7E7;
     padding: 10px 0;
+    position: relative;
     
+}
+
+.post-comment .reply{
+    margin-left: 50px;
+    border-top: 1px solid #E7E7E7;
+    border-bottom: none;
+    margin-top: 5px;
+}
+
+.post-comment .comment-box .comment-image{
+    float: left;
+    margin-right: 10px;
+}
+
+.post-comment .comment-box .comment-image img{
+    width: 40px;
+    height: 40px;
 }
 
 .post-comment .comment-box .comment-header{
@@ -245,6 +263,27 @@ TIMELINE
 
 .post-comment .comment-box .comment-body{
    
+}
+
+.post-comment .comment-box .comment-footer{
+    margin-top: 10px;
+    text-align: right;
+}
+
+.post-comment .comment-box .comment-footer div{    
+    display: inline-block;    
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.post-comment .comment-box .comment-footer div:hover{
+    color: #247448;
+    font-weight: bold;
+}
+
+.post-comment .comment-box .comment-footer div span{
+    margin-right: 4px;
 }
 
 .post-comment textarea{

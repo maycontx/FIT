@@ -2,14 +2,14 @@ var comment = {
     show: function(post, btn){
         btn.addClass("liked");
         $("div[data-info='"+post+"']").css("border-bottom", "1px solid #E7E7E7");
-        $("div[data-info='comment-"+post+"']").show();
-        $("div[data-info='comment-"+post+"'] textarea").focus();
+        $("div[data-info='post-"+post+"']").show();
+        $("div[data-info='post-"+post+"'] textarea").focus();
         $("div[data-info='"+post+"']").attr("comment", "true");
     },
     hide: function(post, btn){
         btn.removeClass("liked");
         $("div[data-info='"+post+"']").css("border-bottom", "1px solid #ACCAB9");
-        $("div[data-info='comment-"+post+"']").hide();        
+        $("div[data-info='post-"+post+"']").hide();        
         $("div[data-info='"+post+"']").attr("comment", "false");
     }
 };

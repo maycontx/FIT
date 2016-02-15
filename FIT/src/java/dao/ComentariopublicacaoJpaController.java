@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import model.Evento;
 
 /**
  *
@@ -269,6 +270,20 @@ public class ComentariopublicacaoJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public List<Comentariopublicacao> findCommentByDad(Comentariopublicacao comment){
+        
+        String query = "SELECT c FROM Comentariopublicacao c WHERE c.idpai = :comment"; 
+        
+        Query q = getEntityManager().createQuery(query);
+        q.setParameter("comment", comment);       
+        
+        try{
+            return (List<Comentariopublicacao>) q.getResultList();
+        }catch(Exception ex){
+            return null;
         }
     }
     

@@ -68,24 +68,78 @@
                 </div>
             </div>
         </div>
-        <div class="post-comment" data-info="comment-${post.idpublicacao}">
+        <div class="post-comment" data-info="post-${post.idpublicacao}">
             <c:forEach items="${post.getComentariopublicacaoList()}" var="comment">
-                <div class="comment-box">
-                    <div class="comment-header">
-                        <div><a href="#">${comment.idusuario.nome} ${comment.idusuario.sobrenome}</a> comentou</div>
-                        <span>
-                            <c:if test="${comment.ultimaEdicao == null}">
-                                ${comment.data}
-                            </c:if>
-                            <c:if test="${comment.ultimaEdicao != null}">
-                                Modificado por último ${comment.ultimaEdicao}
-                            </c:if>
-                        </span>
+                <c:if test="${comment.idpai.idcomentariopublicacao == 1}">
+                    <div class="comment-box" data-info="comment-${comment.idcomentariopublicacao}">
+                        <div class="comment-image">
+                            <img src="${comment.idusuario.perfil.link}" alt="">
+                        </div>
+                        <div class="comment-header">
+                            <div><a href="#">${comment.idusuario.nome} ${comment.idusuario.sobrenome}</a> comentou</div>
+                            <span>
+                                <c:if test="${comment.ultimaEdicao == ''}">
+                                    ${comment.data} atrás
+                                </c:if>
+                                <c:if test="${comment.ultimaEdicao != ''}">
+                                    Modificado por último ${comment.ultimaEdicao} atrás
+                                </c:if>
+                            </span>
+                        </div>
+                        <div class="comment-body">
+                            ${comment.comentario}
+                        </div>
+                        <div class="comment-footer">
+                            <c:if test="${comment.idusuario.idusuario == user.idusuario}"><div><span class="glyphicon glyphicon-pencil"></span> Editar</div></c:if>
+                            <div><span class="glyphicon glyphicon-bullhorn"></span> Responder</div>
+                            <c:if test="${comment.getChildren(comment).size() > 0}"><div><span class="glyphicon glyphicon-chevron-down"></span> Ver respostas</div></c:if>
+                        </div>
+                        
+                            
+                            
+                            
+                            
+                        <!-- INICIO RESPOSTAS -->
+                        <c:forEach items="${comment.getChildren(comment)}" var="children">
+                            <c:if test="${children.idpai.idcomentariopublicacao != 1}">
+                                <div class="reply comment-box" data-info="comment-${children.idcomentariopublicacao}">
+                                    <div class="comment-image">
+                                        <img src="${comment.idusuario.perfil.link}" alt="">
+                                    </div>
+                                    <div class="comment-header">
+                                        <div><a href="#">${children.idusuario.nome} ${children.idusuario.sobrenome}</a> comentou</div>
+                                        <span>
+                                            <c:if test="${children.ultimaEdicao == ''}">
+                                                ${children.data} atrás
+                                            </c:if>
+                                            <c:if test="${children.ultimaEdicao != ''}">
+                                                Modificado por último ${comment.ultimaEdicao} atrás
+                                            </c:if>
+                                        </span>
+                                    </div>
+                                    <div class="comment-body">
+                                        ${children.comentario}
+                                    </div>
+                                    <div class="comment-footer">
+                                        <c:if test="${children.idusuario.idusuario == user.idusuario}"><div><span class="glyphicon glyphicon-pencil"></span> Editar</div></c:if>
+                                        <div><span class="glyphicon glyphicon-bullhorn"></span> Responder</div>
+                                    </div
+                                <div>
+                        <!-- INICIO RESPOSTAS -->
+                        
                     </div>
-                    <div class="comment-body">
-                        ${comment.comentario}
+                </c:if>
+            </c:forEach>    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     </div>
-                </div>
+                </c:if>
             </c:forEach>
             <textarea class="form-control" placeholder="Comentar como ${user.nome} ${user.sobrenome}..." rows="2"></textarea>
         </div>

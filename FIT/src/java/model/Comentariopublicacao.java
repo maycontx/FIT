@@ -5,6 +5,7 @@
  */
 package model;
 
+import dao.ComentariopublicacaoJpaController;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -131,8 +134,11 @@ public class Comentariopublicacao implements Serializable {
 
     public String getUltimaEdicao() {
         
+        if ( ultimaEdicao == null )
+            return "";
+
         // CAPTURA A DIFERENÇA ENTRE AS DATA EM MILISEGUNDOS E CONVERTE PARA MINUTOS
-        long miliseconds = (( new Date().getTime() - data.getTime() ) / 60) / 1000;        
+        long miliseconds = (( new Date().getTime() - ultimaEdicao.getTime() ) / 60) / 1000;        
          
         // FORMATA A HORA
         SimpleDateFormat time = new SimpleDateFormat("HH:mm");  
@@ -148,17 +154,17 @@ public class Comentariopublicacao implements Serializable {
             return miliseconds/1440 + " dia(s)";
         else{
             // CAPTURA O ANO
-            int year = data.getYear();
+            int year = ultimaEdicao.getYear();
             // CHECA SE O ANO DA PUBLICACAO EH MENOR QUE O ATUAL
             if ( new Date().getYear() > year ){
                 // FORMATO COM ANO PARA PUBLICACOES DO ANO ANTERIOR
                 SimpleDateFormat date = new SimpleDateFormat("dd/MMMM/yyyy"); 
-                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                String comp = date.format(ultimaEdicao).replaceAll("/", " de ") + " às " + time.format(ultimaEdicao);
                 return comp;
             }else{
                 // FORMATO COM ANO PARA PUBLICACOES DO MESMO ANO
                 SimpleDateFormat date = new SimpleDateFormat("dd/MMMM"); 
-                String comp = date.format(data).replaceAll("/", " de ") + " às " + time.format(data);
+                String comp = date.format(ultimaEdicao).replaceAll("/", " de ") + " às " + time.format(ultimaEdicao);
                 return comp;
             }
         }
@@ -241,6 +247,14 @@ public class Comentariopublicacao implements Serializable {
     @Override
     public String toString() {
         return "model.Comentariopublicacao[ idcomentariopublicacao=" + idcomentariopublicacao + " ]";
+    }
+    
+    // CAPTURAR TODOS OS COMENTÁRIOS FILHOS
+    public List<Comentariopublicacao> getChildren(Comentariopublicacao comment){
+        //Conexão com o Banco
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
+        
+        return new ComentariopublicacaoJpaController(emf).findCommentByDad(comment);
     }
     
 }

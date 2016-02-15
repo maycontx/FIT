@@ -63,14 +63,14 @@ public class Session {
             request.getSession().setAttribute("user", user);
             //ATUALIZA DATA ULTIMO LOGIN
             updateLastLogin(user);
-        }        
+        }
         return user;
     }
 
     public void logout() {
         // DESTROI A SESSÃO
         request.getSession().invalidate();
-        
+
         //RECUPERANDO OS COOKIES GRAVADOS
         Cookie[] cookies = request.getCookies();
         //ENCONTRANDO O COOKIE FIT
@@ -80,7 +80,7 @@ public class Session {
                 request.getSession().removeAttribute("fitLogin");
             }
         }
-        
+
     }
 
     public Usuario createCookie(boolean keep) {
@@ -90,7 +90,7 @@ public class Session {
 
         if (user != null) {
             //CRIA O COOKIE DO LOGIN
-            Cookie cookieLogin = new Cookie("fitLogin", user.getEmail());            
+            Cookie cookieLogin = new Cookie("fitLogin", user.getEmail());
             if (keep) {
                 //DEFINE VALIDADE DE 1 ANO
                 cookieLogin.setMaxAge(60 * 60 * 24 * 360);
@@ -111,14 +111,18 @@ public class Session {
         //RECUPERANDO OS COOKIES GRAVADOS
         Cookie[] cookies = request.getCookies();
         //ENCONTRANDO O COOKIE FIT
-        for (Cookie c : cookies) {
-            if (c.getName().equals("fitLogin")) {
-                login = c.getValue();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("fitLogin")) {
+                    login = c.getValue();
+                }
             }
+
         }
-        if (login != null) {            
+
+        if (login != null) {
             // BUSCA USUARIO PELO EMAIL
-            Usuario user = new UsuarioJpaController(emf).checkEmail(login);            
+            Usuario user = new UsuarioJpaController(emf).checkEmail(login);
             // SETA EMAIL E SENHA QUE SERA USADO PELO MÉTODO LOGIN
             email = user.getEmail();
             senha = user.getSenha();
@@ -127,7 +131,7 @@ public class Session {
         }
         return null;
     }
-    
+
     private void updateLastLogin(Usuario user) {
         user.setUltimoLogin(new Date());
         try {

@@ -5,18 +5,13 @@
  */
 package controller;
 
-import dao.CompartilhamentoJpaController;
-import dao.EventoJpaController;
-import dao.GrupoJpaController;
-import dao.LikesJpaController;
-import dao.PublicacaoJpaController;
 import dao.UsuarioJpaController;
+import dao.VideoJpaController;
 import helper.Injection;
 import helper.Session;
 import helper.validation;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
@@ -25,12 +20,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Compartilhamento;
-import model.Evento;
-import model.Grupo;
-import model.Likes;
-import model.Publicacao;
 import model.Usuario;
+import model.Video;
 
 /**
  *
@@ -54,7 +45,7 @@ public class indexController extends HttpServlet {
 
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
-
+        
         //Passando os valores para classe de validação
         validation validate = new validation();
         validate.setName(request.getParameter("reg-name"));

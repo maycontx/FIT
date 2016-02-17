@@ -49,7 +49,7 @@ public class CadastroController extends HttpServlet {
         String acctype = request.getParameter("acctype-ajax");
         
         // RECUPERANDO O USUÁRIO DA SESSÃO        
-        Usuario user = (Usuario) request.getSession().getAttribute("user");
+        Usuario user = (Usuario) request.getSession().getAttribute("user");        
         
         // SETA O TIPO DE USUARIO
         user.setTipo(acctype);

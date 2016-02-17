@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
+import helper.Encryption;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -310,6 +306,12 @@ public class Publicacao implements Serializable {
         
         return false;
         
+    }
+    
+    // RETURN ID ENCRYPTED
+    public String getEncryptedId(){
+        Encryption encrypt = new Encryption(this.idpublicacao);
+        return encrypt.doIdEncrypt();
     }
     
 }

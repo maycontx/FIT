@@ -11,6 +11,25 @@ var comment = {
         $("div[data-info='"+post+"']").css("border-bottom", "1px solid #ACCAB9");
         $("div[data-info='post-"+post+"']").hide();        
         $("div[data-info='"+post+"']").attr("comment", "false");
+    },
+    showReply: function(comment, btn){
+        $("div[data-info='reply-" + comment + "']").show();
+        btn.children("span").removeClass("glyphicon-chevron-down");
+        btn.children("span").addClass("glyphicon-chevron-up");
+        $("div[data-info='comment-" + comment + "']").attr("comment", "true");
+    },
+    hideReply: function(comment, btn){
+        $("div[data-info='reply-" + comment + "']").hide();
+        btn.children("span").removeClass("glyphicon-chevron-up");
+        btn.children("span").addClass("glyphicon-chevron-down");;
+        $("div[data-info='comment-" + comment + "']").attr("comment", "false");
+    },
+    reply: function(reply, area, btn){        
+        var name = $("div[data-info='comment-" + reply + "']").children(".comment-header").children("div").children("a").text();
+               
+        area.attr("addr", reply);        
+        area.attr("placeholder", "Respondendo comentário de " + name + "");
+        area.focus();
     }
 };
 
@@ -26,6 +45,25 @@ $(document).ready(function(){
             comment.hide(post, $(this));
         }
         
+    });
+    
+    // GATILHO PARA MOSTRAR REPOSTAS DOS COMENTÁRIOS
+    $("div[data-id='oa']").click(function(){
+        var commentId = $(this).parent().parent().attr("data-info");
+        commentId = commentId.split("-");        
+        var status = $(this).parent().parent().attr("comment");
+        if ( status == "false" )
+            comment.showReply(commentId[1], $(this));
+        else
+            comment.hideReply(commentId[1], $(this));
+    });
+    
+    // GATILHO DE RESPOSTA
+    $("div[data-id='reply']").click(function(){        
+        var reply = $(this).parent().parent().attr("data-info");        
+        var area = $(this).parent().parent().parent().children("textarea");        
+        reply = reply.split("-");
+        comment.reply(reply[1], area, $(this));        
     });
     
 });

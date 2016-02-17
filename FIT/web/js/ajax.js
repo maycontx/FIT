@@ -30,3 +30,30 @@ $(document).on("click", "div[data-id='like']", function (e) {
         }
     });
 });
+
+$(document).on("keypress", "textarea[name='comment-text']", function (e) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if( keycode == "13" ){	
+        
+        var reply = $(this).attr("addr");
+        var post = $(this).attr("post");
+        var comment = $(this).val();
+        
+        $.ajax({
+            type: "GET",           
+            data: {
+                "reply": reply,
+                "post": post,
+                "comment": comment
+            },
+            url: "CommentController",
+            success: function (data) {
+                alert("fds");
+            },
+            error: function () {
+                alert("WRONG");
+            }
+        });        
+    }
+});
+    

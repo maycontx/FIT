@@ -228,7 +228,11 @@ TIMELINE
     
 }
 
-.post-comment .reply{
+.post-comment .reply-box{
+    display: none;
+}
+
+.post-comment .reply-box .reply{
     margin-left: 50px;
     border-top: 1px solid #E7E7E7;
     border-bottom: none;

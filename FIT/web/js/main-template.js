@@ -25,8 +25,7 @@ var comment = {
         $("div[data-info='comment-" + comment + "']").attr("comment", "false");
     },
     reply: function(reply, area, btn){        
-        var name = $("div[data-info='comment-" + reply + "']").children(".comment-header").children("div").children("a").text();
-               
+        var name = $("div[data-info='comment-" + reply + "']").children(".comment-header").children("div").children("a").text(); 
         area.attr("addr", reply);        
         area.attr("placeholder", "Respondendo comentário de " + name + "");
         area.focus();
@@ -48,8 +47,8 @@ $(document).ready(function(){
     });
     
     // GATILHO PARA MOSTRAR REPOSTAS DOS COMENTÁRIOS
-    $("div[data-id='oa']").click(function(){
-        var commentId = $(this).parent().parent().attr("data-info");
+    $(document).on("click", "div[data-id='oa']", function(){    
+        var commentId = $(this).closest('.comment-box').data('info');
         commentId = commentId.split("-");        
         var status = $(this).parent().parent().attr("comment");
         if ( status == "false" )
@@ -59,8 +58,8 @@ $(document).ready(function(){
     });
     
     // GATILHO DE RESPOSTA
-    $("div[data-id='reply']").click(function(){        
-        var reply = $(this).parent().parent().attr("data-info");        
+    $(document).on("click", "div[data-id='reply']", function(){ 
+        var reply = $(this).closest('.comment-box').data('info');
         var area = $(this).parent().parent().parent().children("textarea");        
         reply = reply.split("-");
         comment.reply(reply[1], area, $(this));        

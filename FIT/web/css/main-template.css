@@ -219,6 +219,8 @@ TIMELINE
     border-right: 1px solid #ACCAB9;
     border-bottom: 1px solid #ACCAB9;
     display: none;
+    max-height: 600px;
+    overflow: auto;
 }
 
 .post-comment .comment-box{

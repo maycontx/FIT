@@ -35,7 +35,7 @@ public class ComentariopublicacaoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Comentariopublicacao comentariopublicacao) {
+    public int create(Comentariopublicacao comentariopublicacao) {
         if (comentariopublicacao.getComentariopublicacaoList() == null) {
             comentariopublicacao.setComentariopublicacaoList(new ArrayList<Comentariopublicacao>());
         }
@@ -92,6 +92,9 @@ public class ComentariopublicacaoJpaController implements Serializable {
                 em.close();
             }
         }
+        
+        return comentariopublicacao.getIdcomentariopublicacao();
+        
     }
 
     public void edit(Comentariopublicacao comentariopublicacao) throws NonexistentEntityException, Exception {

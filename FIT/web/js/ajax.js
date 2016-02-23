@@ -33,27 +33,49 @@ $(document).on("click", "div[data-id='like']", function (e) {
 
 $(document).on("keypress", "textarea[name='comment-text']", function (e) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    if( keycode == "13" ){	
+    if( keycode == "13" ){
         
-        var reply = $(this).attr("addr");
-        var post = $(this).attr("post");
         var comment = $(this).val();
         
-        $.ajax({
-            type: "GET",           
-            data: {
-                "reply": reply,
-                "post": post,
-                "comment": comment
-            },
-            url: "CommentController",
-            success: function (data) {
-                alert("fds");
-            },
-            error: function () {
-                alert("WRONG");
-            }
-        });        
+        if (comment.trim("") != ""){
+        
+            var reply = $(this).attr("addr");
+            var post = $(this).attr("post");
+
+
+            $.ajax({
+                type: "GET",
+                dataType: "xml",
+                data: {
+                    "reply": reply,
+                    "post": post,
+                    "comment": comment
+                },
+                url: "CommentController",
+                success: function (data) {
+                    $(data).find('result').each(function () {
+                        //image = $(this).find('name').text();
+                        name = $(this).find('name').text();
+                        text = $(this).find('comment').text();
+                        id = $(this).find('id').text();                    
+                    });
+
+                    commentObj = {
+                        AuthorName: name,
+                        //AuthorImage: image,
+                        text: text,
+                        id: id,
+                        post: post,
+                        reply: reply
+                    }
+
+                    object.comment(commentObj);
+                },
+                error: function () {
+                    alert("WRONG");
+                }
+            });        
+        }
     }
 });
     

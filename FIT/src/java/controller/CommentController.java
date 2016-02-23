@@ -4,6 +4,7 @@ import dao.ComentariopublicacaoJpaController;
 import dao.PublicacaoJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Comentariopublicacao;
+import model.Publicacao;
 import model.Usuario;
 
 @WebServlet(name = "CommentController", urlPatterns = {"/CommentController"})
@@ -30,6 +32,8 @@ public class CommentController extends HttpServlet {
         //Conexão com o Banco
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("FITPU");
         
+        Usuario user = (Usuario) request.getSession().getAttribute("user");
+        
         String reply = request.getParameter("reply");
         Integer post = Integer.parseInt(request.getParameter("post"));
         String comment = request.getParameter("comment");
@@ -44,10 +48,22 @@ public class CommentController extends HttpServlet {
             Comentariopublicacao dad = new ComentariopublicacaoJpaController(emf).findComentariopublicacao(1);
             commentObj.setIdpai(dad);
         }
-        commentObj.setIdusuario((Usuario) request.getSession().getAttribute("user"));
+        commentObj.setIdusuario(user);
         commentObj.setStatus("Ativo");
         
-        new ComentariopublicacaoJpaController(emf).create(commentObj);
+        int id = new ComentariopublicacaoJpaController(emf).create(commentObj);
+        
+        String name = commentObj.getIdusuario().getNome() + " " + commentObj.getIdusuario().getSobrenome();
+        //String image = commentObj.getIdusuario().getPerfil().getLink();
+        
+        response.setContentType("text/xml");
+        response.setHeader("Cache-Control", "no-cache");
+        response.getWriter().write("<result>"
+                + "<name>"+name+"</name>"
+                + "<id>"+id+"</id>"
+                + "<comment>"+commentObj.getComentario()+"</comment>"
+                + "<reply>"+reply+"</reply>"
+        + "</result>");
     
     }
 

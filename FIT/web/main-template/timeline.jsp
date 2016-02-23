@@ -78,12 +78,7 @@
                         <div class="comment-header">
                             <div><a href="#">${comment.idusuario.nome} ${comment.idusuario.sobrenome}</a> comentou</div>
                             <span>
-                                <c:if test="${comment.ultimaEdicao == ''}">
-                                    ${comment.data} atrás
-                                </c:if>
-                                <c:if test="${comment.ultimaEdicao != ''}">
-                                    Modificado por último ${comment.ultimaEdicao} atrás
-                                </c:if>
+                                <!-- DATA AQUI -->
                             </span>
                         </div>
                         <div class="comment-body">
@@ -110,12 +105,7 @@
                                         <div class="comment-header">
                                             <div><a href="#">${children.idusuario.nome} ${children.idusuario.sobrenome}</a> comentou</div>
                                             <span>
-                                                <c:if test="${children.ultimaEdicao == ''}">
-                                                    ${children.data} atrás
-                                                </c:if>
-                                                <c:if test="${children.ultimaEdicao != ''}">
-                                                    Editado por último ${comment.ultimaEdicao} atrás
-                                                </c:if>
+                                                <!-- DATA AQUI --> 
                                             </span>
                                         </div>
                                         <div class="comment-body">
@@ -130,6 +120,7 @@
                                 </c:if>
                             </c:forEach> 
                         </div>
+                            <!-- FIM RESPOSTAS -->
 
 
 

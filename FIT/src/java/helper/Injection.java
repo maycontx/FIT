@@ -58,7 +58,7 @@ public class Injection {
         request.setAttribute("page", "timeline");
         // INJETANDO PUBLICAÇÕES
         List<Publicacao> posts = new PublicacaoJpaController(emf).findPublicationsUserFollowed(user.getIdusuario());
-        request.setAttribute("posts", posts);
+        request.setAttribute("posts", posts);       
         
     }
     

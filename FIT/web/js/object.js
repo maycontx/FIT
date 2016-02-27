@@ -28,7 +28,13 @@ var object = {
         userLink.attr("src", "#"); // LINK ADDRESS
         userLink.text(commentObj.AuthorName); // LINK TEXT
         hdiv.append(userLink);
-        hdiv.append(" comentou");
+        
+        if ( commentObj.reply == "0" )
+            hdiv.append(" comentou");
+        else   
+            hdiv.append(" respondeu");
+        
+        
         commentHeader.append(hdiv);
         
         // BODY

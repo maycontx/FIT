@@ -30,8 +30,13 @@ var comment = {
         area.attr("addr", reply);
         area.attr("placeholder", "Respondendo comentário de " + name + "");
         area.focus();
+        area.val("");
+        area.attr("_e", false);
         
         $("div[data-id='reply-cancel']").each(function(){
+            $(this).remove();
+        });
+        $("div[data-id='edit-cancel']").each(function(){
             $(this).remove();
         });
         var cancel = $("<div>");
@@ -46,11 +51,50 @@ var comment = {
     },
     cancelReply: function(btn){
         var textarea = btn.parent().children("textarea"); 
-        textarea.attr({
+        textarea.attr({            
             placeholder: "Comentar...",
             "addr": 0
         });
+        textarea.val("");
         btn.remove();        
+    },
+    edit: function(btn){
+        var commentBox = btn.parent().parent(".comment-box");
+        var comment = commentBox.attr("data-info").split("-");
+        comment = comment[1];
+        var text = commentBox.children(".comment-body").text().trim();
+        
+        var textarea = commentBox.parent().children("textarea");
+        textarea.val(text);
+        textarea.attr("_e", true);
+        textarea.attr("addr", comment);
+        textarea.focus();
+        
+        $("div[data-id='edit-cancel']").each(function(){
+            $(this).remove();
+        });
+        $("div[data-id='reply-cancel']").each(function(){
+            $(this).remove();
+        });
+        var cancel = $("<div>");
+        var glyph = $("<span>");       
+        glyph.addClass("glyphicon glyphicon-remove"); 
+        cancel.append(glyph);
+        cancel.append(" Cancelar edição");
+        cancel.addClass("reply-cancel");        
+        cancel.attr("data-id", "edit-cancel");
+        
+        btn.parent().parent().parent().append(cancel); 
+    },
+    cancelEdit: function(btn){
+        var textarea = btn.parent().children("textarea"); 
+        textarea.attr({            
+            placeholder: "Comentar...",
+            "addr": 0
+        });
+        textarea.val("");
+        textarea.attr("_e", false);
+        btn.remove(); 
     }
 };
 
@@ -90,6 +134,16 @@ $(document).ready(function () {
     // GATILHO DE CANCELAMENTO DA RESPOSTA
     $(document).on("click", "div[data-id='reply-cancel']", function () {
         comment.cancelReply($(this));               
+    });
+    
+    // GATILHO PARA EDIÇÃO DE COMENTÁRIO
+    $("[data-id='c-edit']").click(function(){
+        comment.edit($(this));
+    });
+    
+    // GATILHO PARA CANCELAR EDIÇÃO DE COMENTÁRIO
+    $(document).on("click", "[data-id='edit-cancel']", function () {    
+        comment.cancelEdit($(this));
     });
     
     // TEXTAREA MANAGER

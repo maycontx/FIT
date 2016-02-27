@@ -41,6 +41,7 @@ $(document).on("keypress", "textarea[name='comment-text']", function (e) {
         
             var reply = $(this).attr("addr");
             var post = $(this).attr("post");
+            var edit = $(this).attr("_e");
 
 
             $.ajax({
@@ -49,17 +50,19 @@ $(document).on("keypress", "textarea[name='comment-text']", function (e) {
                 data: {
                     "reply": reply,
                     "post": post,
-                    "comment": comment
+                    "comment": comment,
+                    "edit": edit
                 },
                 url: "CommentController",
                 success: function (data) {
                     $(data).find('result').each(function () {
-                        //image = $(this).find('name').text();
+                        image = $(this).find('name').text();
                         name = $(this).find('name').text();
                         text = $(this).find('comment').text();
-                        id = $(this).find('id').text();                    
+                        id = $(this).find('id').text();
+                        status = $(this).find('status').text();
                     });
-
+                    
                     commentObj = {
                         AuthorName: name,
                         //AuthorImage: image,
@@ -68,8 +71,23 @@ $(document).on("keypress", "textarea[name='comment-text']", function (e) {
                         post: post,
                         reply: reply
                     }
+                    
+                    if ( status == "new" )                        
+                        object.comment(commentObj);
+                    else if ( status == "edit" ){ 
+                        var commentBody = $("div[data-info='comment-"+commentObj.id+"']").children(".comment-body");
+                        commentBody.text(comment);
+                        
+                        var textarea = commentBody.parent().parent().children("textarea");                        
+                        textarea.val("");
+                        textarea.attr("rows", 1);
+                        
+                    }
+                        
+                    
+                    
 
-                    object.comment(commentObj);
+                    
                 },
                 error: function () {
                     alert("WRONG");

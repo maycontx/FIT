@@ -28,7 +28,13 @@ var object = {
         userLink.attr("src", "#"); // LINK ADDRESS
         userLink.text(commentObj.AuthorName); // LINK TEXT
         hdiv.append(userLink);
-        hdiv.append(" comentou");
+        
+        if ( commentObj.reply == "0" )
+            hdiv.append(" comentou");
+        else   
+            hdiv.append(" respondeu");
+        
+        
         commentHeader.append(hdiv);
         
         // BODY
@@ -69,12 +75,14 @@ var object = {
             commentBox.addClass("reply");
             
             var count = 0;
-            $("div[data-info=comment-" + commentObj.reply + "] .reply-box").each(function(){
+            $("div[data-info=comment-" + commentObj.reply + "] .reply-box").children("div").each(function(){
                 count++;
             });
             
             if ( count > 0 ){                
                 $("div[data-info=comment-" + commentObj.reply + "] .reply-box").append(commentBox);
+                var seeMore = $("div[data-info=comment-" + commentObj.reply + "]").children(".comment-footer").children("[data-id='oa']");
+                seeMore.html("<span class='glyphicon glyphicon-chevron-up'></span> Ver respostas (" + (count + 1) + ")");
             }else{                
                 // REPLY BTN
                 var fdiv3 = $("<div>");
@@ -93,9 +101,19 @@ var object = {
             }
             
             if ( $("div[data-info=comment-" + commentObj.reply + "]").attr("comment") == "false" )
-                $("div[data-info=comment-" + commentObj.reply + "] .comment-footer div[data-id='oa']").trigger('click');                        
+                $("div[data-info=comment-" + commentObj.reply + "] .comment-footer div[data-id='oa']").trigger('click');  
+            
+            comment.cancelReply($("div[data-id='reply-cancel']"));
+                       
+            $('html, body').stop().animate({
+	        'scrollTop': $("div[data-info='comment-"+commentObj.id+"']").offset().top
+	    }, 300);            
+            
+            
         }      
         
         textarea.val("");
+        textarea.attr("rows", 1);
+        
     }
 };

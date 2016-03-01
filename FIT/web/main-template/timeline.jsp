@@ -84,18 +84,14 @@
                         <div class="comment-body">
                             ${comment.comentario}
                         </div>
-                        <div class="comment-footer">
-                            <c:if test="${comment.idusuario == user}"><div><span class="glyphicon glyphicon-pencil"></span> Editar</div></c:if>
-                            <div data-id="reply"><span class="glyphicon glyphicon-bullhorn"></span> Responder</div>
+                        <div class="comment-footer"> 
                             <c:if test="${comment.getChildren(comment).size() > 0}"><div data-id="oa"><span class="glyphicon glyphicon-chevron-down"></span> Ver respostas (${comment.getChildren(comment).size()})</div></c:if>
-                            </div>
-
-
-
-
-
-                            <!-- INICIO RESPOSTAS -->
-                            <div class="reply-box" data-info="reply-${comment.idcomentariopublicacao}">
+                            <div data-id="reply"><span class="glyphicon glyphicon-bullhorn"></span> Responder</div>
+                            <c:if test="${comment.idusuario == user}"><div data-id="c-edit"><span class="glyphicon glyphicon-pencil"></span> Editar</div></c:if>
+                            <c:if test="${comment.idusuario == user}"><div data-id="c-remove"><span class="glyphicon glyphicon-trash"></span> Remover</div></c:if>
+                        </div>
+                        <!-- INICIO RESPOSTAS -->
+                        <div class="reply-box" data-info="reply-${comment.idcomentariopublicacao}">
                             <c:forEach items="${comment.getChildren(comment)}" var="children">
                                 <c:if test="${children.idpai.idcomentariopublicacao != 1}">
                                     <div class="reply comment-box" data-info="comment-${children.idcomentariopublicacao}">
@@ -103,7 +99,7 @@
                                             <img src="${comment.idusuario.perfil.link}" alt="">
                                         </div>
                                         <div class="comment-header">
-                                            <div><a href="#">${children.idusuario.nome} ${children.idusuario.sobrenome}</a> comentou</div>
+                                            <div><a href="#">${children.idusuario.nome} ${children.idusuario.sobrenome}</a> respondeu</div>
                                             <span>
                                                 <!-- DATA AQUI --> 
                                             </span>
@@ -113,27 +109,17 @@
                                         </div>
                                         <div class="comment-footer">
                                             <c:if test="${children.idusuario == user}"><div><span class="glyphicon glyphicon-pencil"></span> Editar</div></c:if>                                                
-                                            </div>
-                                            <!-- INICIO RESPOSTAS -->
-
-                                        </div>
+                                        </div>                                            
+                                    </div>
                                 </c:if>
                             </c:forEach> 
                         </div>
-                            <!-- FIM RESPOSTAS -->
-
-
-
-
-
-
-
-
+                        <!-- FIM RESPOSTAS -->
                     </div>
                 </c:if>
             </c:forEach>
-            <textarea addr="0" post="${post.idpublicacao}" name="comment-text" class="form-control" placeholder="Comentar como ${user.nome} ${user.sobrenome}..." rows="2"></textarea>
-            
+            <textarea addr="0" _e="false" post="${post.idpublicacao}" name="comment-text" class="form-control" placeholder="Comentar..." rows="1"></textarea>
+
         </div>
     </c:forEach>
 </div>

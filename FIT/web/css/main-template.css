@@ -218,9 +218,7 @@ TIMELINE
     border-left: 1px solid #ACCAB9;
     border-right: 1px solid #ACCAB9;
     border-bottom: 1px solid #ACCAB9;
-    display: none;
-    max-height: 600px;
-    overflow: auto;
+    display: none;    
 }
 
 .post-comment .comment-box{
@@ -244,6 +242,7 @@ TIMELINE
 .post-comment .comment-box .comment-image{
     float: left;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .post-comment .comment-box .comment-image img{
@@ -292,6 +291,18 @@ TIMELINE
     margin-right: 4px;
 }
 
-.post-comment textarea{
-    
+.post-comment textarea{   
+    resize: none;
+}
+
+.post-comment .reply-cancel{
+    color: #777;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.post-comment .reply-cancel:hover{
+    color: #333;
+    text-decoration: underline;
 }

@@ -98,7 +98,6 @@ public class indexController extends HttpServlet {
 
             // INSTANCIANDO INJECTION
             Injection injection = new Injection(request, emf);
-
             // REDIRECIONANDO
             RequestDispatcher rd = request.getRequestDispatcher("basic-template.jsp");
             // INJETANDO DADOS DO TEMPLATE BÁSICO
